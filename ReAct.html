@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?</title>
+<!--Generated on Mon Dec  2 08:26:32 2024 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/browse/0.3.4/css/ar5iv.0.7.9.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/browse/0.3.4/css/ar5iv-fonts.0.7.9.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/browse/0.3.4/css/latexml_styles.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
+<script src="/static/browse/0.3.4/js/addons_new.js"></script>
+<script src="/static/browse/0.3.4/js/feedbackOverlay.js"></script>
+<base href="/html/2412.01262v1/"/></head>
+<body>
+<nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S1" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Introduction</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S2" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Related Work</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S3" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>ReAct for Task-Oriented Dialogue</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S4" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4 </span>Experimental Setup</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S4.SS1" title="In 4 Experimental Setup ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.1 </span>Simulated User</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S4.SS2" title="In 4 Experimental Setup ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.2 </span>Evaluation Setup</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5 </span>Results</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5.SS1" title="In 5 Results ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1 </span>Simulated Evaluation</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5.SS2" title="In 5 Results ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.2 </span>Human Evaluation</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5.SS3" title="In 5 Results ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.3 </span>Qualitative Analysis</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S6" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6 </span>Conclusion</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S7" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">7 </span>Limitations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S8" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8 </span>Ethical Considerations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_appendix"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">A </span>The ReAct Prompt</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_appendix">
+<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">B </span>Qualitative Analysis</span></a>
+<ol class="ltx_toclist ltx_toclist_appendix">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.SS0.SSS0.Px1" title="In Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">System produces creative responses but does not stick to the instructions</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.SS0.SSS0.Px2" title="In Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Smaller goals are easier to achieve</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.SS0.SSS0.Px3" title="In Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Reasoning is not always consistent</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.SS0.SSS0.Px4" title="In Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Issues generating the correct dialogue state</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.SS0.SSS0.Px5" title="In Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">No clarifying questions from the system</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.SS0.SSS0.Px6" title="In Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Other Observations</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_appendix">
+<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A3" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">C </span>LLM User Agent Issues</span></a>
+<ol class="ltx_toclist ltx_toclist_appendix">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A3.SS0.SSS0.Px1" title="In Appendix C LLM User Agent Issues ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">LLM switches roles with the system</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A3.SS0.SSS0.Px2" title="In Appendix C LLM User Agent Issues ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Unable to end the conversation based on goal fulfillment</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_appendix">
+<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A4" title="In Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">D </span>Manual Analysis of GPT-3.5 vs GPT-4</span></a>
+<ol class="ltx_toclist ltx_toclist_appendix">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A4.SS0.SSS0.Px1" title="In Appendix D Manual Analysis of GPT-3.5 vs GPT-4 ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Parsing Errors</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A4.SS0.SSS0.Px2" title="In Appendix D Manual Analysis of GPT-3.5 vs GPT-4 ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Clarifying and verifying user requests</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A4.SS0.SSS0.Px3" title="In Appendix D Manual Analysis of GPT-3.5 vs GPT-4 ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_title">Politeness and verbosity</span></a></li>
+</ol>
+</li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_text ltx_font_bold" id="id1.1.id1">Michelle Elizabeth<sup class="ltx_sup" id="id1.1.id1.1">1,2,3</sup></span>,
+<span class="ltx_text ltx_font_bold" id="id2.2.id2">Morgan Veyret<sup class="ltx_sup" id="id2.2.id2.1">3</sup></span>,
+<span class="ltx_text ltx_font_bold" id="id3.3.id3">Miguel Couceiro<sup class="ltx_sup" id="id3.3.id3.1">1</sup></span>,
+<br class="ltx_break"/><span class="ltx_text ltx_font_bold" id="id4.4.id4">Ondřej Dušek<sup class="ltx_sup" id="id4.4.id4.1">2</sup></span>,
+<span class="ltx_text ltx_font_bold" id="id5.5.id5">Lina M. Rojas-Barahona<sup class="ltx_sup" id="id5.5.id5.1">3</sup></span>,
+
+<br class="ltx_break"/><sup class="ltx_sup" id="id6.6.id6">1</sup> University of Lorraine/LORIA, France,
+<sup class="ltx_sup" id="id7.7.id7">2</sup>Charles University, Czechia,
+<sup class="ltx_sup" id="id8.8.id8">3</sup>Orange, France
+
+<br class="ltx_break"/><a class="ltx_ref ltx_href" href="mailto:m@domain" title="">michelle.elizabeth@orange.com</a>,
+<a class="ltx_ref ltx_href" href="mailto:m@domain" title="">morgan.veyret@orange.com</a>
+<a class="ltx_ref ltx_href" href="mailto:m@domain" title="">miguel.couceiro@loria.fr</a>,
+<br class="ltx_break"/><a class="ltx_ref ltx_href" href="mailto:m@domain" title="">odusek@ufal.mff.cuni.cz</a>,
+<a class="ltx_ref ltx_href" href="mailto:m@domain" title="">lina.rojas@orange.com</a>
+</span></span>
+</div>
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="id9.id1">Large language models (LLMs) gained immense popularity due to their impressive capabilities in unstructured conversations. However, they underperform compared to previous approaches in task-oriented dialogue (TOD), wherein reasoning and accessing external information are crucial. Empowering LLMs with advanced prompting strategies such as reasoning and acting (ReAct) <cite class="ltx_cite ltx_citemacro_cite">Yao et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib19" title="">2022</a>)</cite> has shown promise in solving complex tasks traditionally requiring reinforcement learning. In this work, we apply the ReAct strategy to guide LLMs performing TOD. We evaluate ReAct-based LLMs (ReAct-LLMs) both in simulation and with real users. While ReAct-LLMs seem to underperform state-of-the-art approaches in simulation, human evaluation indicates higher user satisfaction rate compared to handcrafted systems despite having a lower success rate.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="p1">
+<div class="ltx_block ltx_align_bottom" id="p1.1">
+<p class="ltx_p" id="p1.1.1"><span class="ltx_text ltx_font_bold" id="p1.1.1.1">Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?</span></p>
+<br class="ltx_break ltx_centering"/>
+<p class="ltx_p ltx_align_center" id="p1.1.2" style="width:433.6pt;"><span class="ltx_text ltx_inline-block" id="p1.1.2.1" style="width:0.0pt;">
+<span class="ltx_tabular ltx_align_top" id="p1.1.2.1.1">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="p1.1.2.1.1.1.1">
+<span class="ltx_td ltx_align_center" id="p1.1.2.1.1.1.1.1"><span class="ltx_text ltx_font_bold" id="p1.1.2.1.1.1.1.1.1">
+Michelle Elizabeth<sup class="ltx_sup" id="p1.1.2.1.1.1.1.1.1.1">1,2,3</sup>,
+Morgan Veyret<sup class="ltx_sup" id="p1.1.2.1.1.1.1.1.1.2">3</sup>,
+Miguel Couceiro<sup class="ltx_sup" id="p1.1.2.1.1.1.1.1.1.3">1</sup>,</span></span></span>
+<span class="ltx_tr" id="p1.1.2.1.1.2.2">
+<span class="ltx_td ltx_align_center" id="p1.1.2.1.1.2.2.1"><span class="ltx_text ltx_font_bold" id="p1.1.2.1.1.2.2.1.1">Ondřej Dušek<sup class="ltx_sup" id="p1.1.2.1.1.2.2.1.1.1">2</sup></span>,
+<span class="ltx_text ltx_font_bold" id="p1.1.2.1.1.2.2.1.2">Lina M. Rojas-Barahona<sup class="ltx_sup" id="p1.1.2.1.1.2.2.1.2.1">3</sup></span>,</span></span>
+<span class="ltx_tr" id="p1.1.2.1.1.3.3">
+<span class="ltx_td ltx_align_center" id="p1.1.2.1.1.3.3.1"><sup class="ltx_sup" id="p1.1.2.1.1.3.3.1.1">1</sup> University of Lorraine/LORIA, France,
+<sup class="ltx_sup" id="p1.1.2.1.1.3.3.1.2">2</sup>Charles University, Czechia,
+<sup class="ltx_sup" id="p1.1.2.1.1.3.3.1.3">3</sup>Orange, France</span></span>
+<span class="ltx_tr" id="p1.1.2.1.1.4.4">
+<span class="ltx_td ltx_align_center" id="p1.1.2.1.1.4.4.1"><a class="ltx_ref ltx_href" href="mailto:m@domain" title="">michelle.elizabeth@orange.com</a>,
+<a class="ltx_ref ltx_href" href="mailto:m@domain" title="">morgan.veyret@orange.com</a>
+<a class="ltx_ref ltx_href" href="mailto:m@domain" title="">miguel.couceiro@loria.fr</a>,</span></span>
+<span class="ltx_tr" id="p1.1.2.1.1.5.5">
+<span class="ltx_td ltx_align_center" id="p1.1.2.1.1.5.5.1"><a class="ltx_ref ltx_href" href="mailto:m@domain" title="">odusek@ufal.mff.cuni.cz</a>,
+<a class="ltx_ref ltx_href" href="mailto:m@domain" title="">lina.rojas@orange.com</a></span></span>
+</span>
+</span></span></p>
+<br class="ltx_break ltx_centering"/>
+</div>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">Task-oriented Dialogue (TOD) systems can solve tasks, such as accessing information or booking places and tickets, by interacting with humans in natural language <cite class="ltx_cite ltx_citemacro_cite">Budzianowski et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib1" title="">2018</a>); Rastogi et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib11" title="">2020</a>)</cite>.
+Distinct approaches for TOD have been explored. Traditional pipelines integrate specialized components for natural language understanding (NLU), dialogue state tracking (DST), dialogue management and natural language generation (NLG), and optionally speech recognition and synthesis <cite class="ltx_cite ltx_citemacro_cite">Ultes et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib15" title="">2017</a>)</cite>.
+On the other hand, end-to-end architectures utilize neural networks <cite class="ltx_cite ltx_citemacro_cite">Wen et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib18" title="">2017</a>); Zhu et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib22" title="">2020</a>, <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib21" title="">2022</a>)</cite>. Both approaches are costly to develop, requiring burdensome engineering and collecting large dialogue corpora. Large language models (LLMs) <cite class="ltx_cite ltx_citemacro_cite">Ouyang et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib9" title="">2022</a>)</cite> offer an alternative to this by generalizing from instructions or a small number of examples and promise fluent and natural replies. However, unlike traditional LLM scenarios, task-oriented dialogues typically have a rigid structure and require access to an external database to retrieve necessary information, such as venues or objects to search for and their properties.</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">Recently, synergizing reasoning and acting in LLMs (ReAct) <cite class="ltx_cite ltx_citemacro_citep">(Yao et al., <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib19" title="">2022</a>)</cite> has shown promising results in controlled tasks that need external information access. ReAct employs few-shot LLM prompting with a sequence of <em class="ltx_emph ltx_font_italic" id="S1.p2.1.1">thoughts</em>, <em class="ltx_emph ltx_font_italic" id="S1.p2.1.2">actions</em>, and <em class="ltx_emph ltx_font_italic" id="S1.p2.1.3">observations</em>. Thoughts refer to internal reasoning that decomposes a problem into sub-problems. Actions execute external API calls or programs, and observations analyze the results of actions.
+In this work, we investigate the ability of LLMs guided by ReAct to solve task-oriented dialogue. In particular:</p>
+<ul class="ltx_itemize" id="S1.I1">
+<li class="ltx_item" id="S1.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S1.I1.i1.p1">
+<p class="ltx_p" id="S1.I1.i1.p1.1">We implement two ReAct-based systems for TOD, using GPT-3.5 and GPT-4 LLMs respectively <cite class="ltx_cite ltx_citemacro_cite">OpenAI (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib8" title="">2023</a>)</cite>, for the MultiWOZ tourist information domains <cite class="ltx_cite ltx_citemacro_cite">Budzianowski et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib1" title="">2018</a>)</cite>.</p>
+</div>
+</li>
+<li class="ltx_item" id="S1.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S1.I1.i2.p1">
+<p class="ltx_p" id="S1.I1.i2.p1.1">We evaluate our ReAct-LLM systems both with a simulated user and with humans. Additionally, we assess the trade-off between the performance and the cost of LLM APIs.
+</p>
+</div>
+</li>
+<li class="ltx_item" id="S1.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S1.I1.i3.p1">
+<p class="ltx_p" id="S1.I1.i3.p1.1">Our results show that ReAct-LLMs underperform state-of-the-art baselines in terms of success rate in simulation. However,
+humans rate their conversation with the ReAct-LLM system higher than the baseline. Although the baseline is better at achieving goals, the users prefer talking to the ReAct-LLM bot.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Related Work</h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">A variety of approaches from handcrafted (HDC) to reinforcement learning (RL) have been proposed for the dialogue manager, which is in charge of decision making <cite class="ltx_cite ltx_citemacro_cite">Casanueva et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib2" title="">2018</a>); Weisz et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib16" title="">2018a</a>)</cite>. The combination of deep RL with imitation learning <cite class="ltx_cite ltx_citemacro_cite">Cordier et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib5" title="">2020</a>)</cite> as well as structural RL have also been applied to multi-domain, multi-task dialogue <cite class="ltx_cite ltx_citemacro_cite">Chen et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib3" title="">2018</a>); Cordier et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib4" title="">2022</a>)</cite>.
+However, these approaches require separate specialized components, involving extensive engineering, the need for semantically annotated data as well as user simulators operating at the semantic level.</p>
+</div>
+<div class="ltx_para" id="S2.p2">
+<p class="ltx_p" id="S2.p2.1">With the introduction of neural models, end-to-end approaches emerged <cite class="ltx_cite ltx_citemacro_cite">Wen et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib18" title="">2017</a>)</cite>. The latest architectures are built on top of pretrained language models and involve two-step generation: the model first generates the dialogue state or database query based on user input; then, it generates the reply based on external database search <cite class="ltx_cite ltx_citemacro_cite">Peng et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib10" title="">2021</a>); Lin et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib7" title="">2020</a>)</cite>.
+These approaches provide more flexibility and potentially better fluency, but require even larger training corpora.</p>
+</div>
+<div class="ltx_para" id="S2.p3">
+<p class="ltx_p" id="S2.p3.1">Recent approaches explore simple LLM prompting for TOD using few-shot examples of relevant dialogue turns <cite class="ltx_cite ltx_citemacro_cite">Hudeček and Dusek (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib6" title="">2023</a>)</cite> or even full conversation snippets <cite class="ltx_cite ltx_citemacro_cite">Zhang et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib20" title="">2023</a>)</cite>.
+In contrast, in this work we propose to use the ReAct strategy to guide LLMs towards task oriented dialogue.
+Since dialogue is dynamic and evaluation on static data in single-turn replies may not be consistent with full dialogue performance <cite class="ltx_cite ltx_citemacro_cite">Takanobu et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib14" title="">2020</a>)</cite>,
+we evaluate the system on full dialogues – first in a simulated environment, then with humans.
+Unlike previous works for dialogue management <cite class="ltx_cite ltx_citemacro_cite">Weisz et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib17" title="">2018b</a>); Zhu et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib22" title="">2020</a>); Cordier et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib4" title="">2022</a>)</cite>, the simulator and our system do not interact at the semantic level, instead they interact in natural language.
+Unlike previous end-to-end and LLM-based approaches, which generated delexicalized<span class="ltx_note ltx_role_footnote" id="footnote1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_tag ltx_tag_note">1</span>Entity names replaced by placeholders and rule-based post-processing.</span></span></span> responses, to ensure that entities exist in the database, we generate full responses including entity names.
+This avoids constraining the inherent capabilities of LLMs in generating natural language. Instead, we guide the LLM towards the database constraints through ReAct prompting.</p>
+</div>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>ReAct for Task-Oriented Dialogue</h2>
+<div class="ltx_para" id="S3.p1">
+<p class="ltx_p" id="S3.p1.1">Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S3.F1" title="Figure 1 ‣ 3 ReAct for Task-Oriented Dialogue ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">1</span></a> shows the proposed architecture: the ReAct-LLM system agent interacts with a user in natural language. The system agent has access to external tools to guide it through the TOD pipeline.</p>
+</div>
+<figure class="ltx_figure" id="S3.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="238" id="S3.F1.g1" src="extracted/6038472/img/tod_react.png" width="509"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>The proposed ReAct-LLM system agent uses few-shot examples in the prompt to guide the LLM in decomposing reasoning into a sequence of thoughts, actions, and observations.</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p2">
+<p class="ltx_p" id="S3.p2.1">We provide few-shot examples in the prompt following ReAct <cite class="ltx_cite ltx_citemacro_cite">Yao et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib19" title="">2022</a>)</cite>. We give the ReAct-LLM agent a list of tools: <span class="ltx_text ltx_font_typewriter" id="S3.p2.1.1">list_domains</span>, <span class="ltx_text ltx_font_typewriter" id="S3.p2.1.2">list_slots</span>, <span class="ltx_text ltx_font_typewriter" id="S3.p2.1.3">db_query</span> and <span class="ltx_text ltx_font_typewriter" id="S3.p2.1.4">generate_booking_reference</span>, which it can use as actions. The example provided in the prompt shows how and in what order the tools should be used. The reasoning process to be followed by the system agent is outlined below:</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p3">
+<p class="ltx_p" id="S3.p3.1"><span class="ltx_text ltx_font_bold" id="S3.p3.1.1">Step 1:</span> The system agent should try to understand the user input. It should form a thought according to the input and decide what course of action it should follow. The steps are to identify the domain and the corresponding slots and values from the user input. Then, it should form the belief state and use it to query the database, retrieve the results and form the final answer based on the results.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p4">
+<p class="ltx_p" id="S3.p4.1"><span class="ltx_text ltx_font_bold" id="S3.p4.1.1">Step 2:</span> The system agent should call <span class="ltx_text ltx_font_typewriter" id="S3.p4.1.2">list_domains</span>.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p5">
+<p class="ltx_p" id="S3.p5.1"><span class="ltx_text ltx_font_bold" id="S3.p5.1.1">Step 3:</span> It observes <span class="ltx_text ltx_font_typewriter" id="S3.p5.1.2">list_domains</span> output and decides which domain the user request belongs to.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p6">
+<p class="ltx_p" id="S3.p6.1"><span class="ltx_text ltx_font_bold" id="S3.p6.1.1">Step 4:</span> Now that the system knows the domain, it needs the list of slots available in the selected domain to identify the slot values from the user request. The system should use the <span class="ltx_text ltx_font_typewriter" id="S3.p6.1.2">list_slots</span> tool with the domain as input to get the list of slots.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p7">
+<p class="ltx_p" id="S3.p7.1"><span class="ltx_text ltx_font_bold" id="S3.p7.1.1">Step 5:</span> It should now observe the list of slots and decide which slots have been mentioned in the user input and form/update <span class="ltx_text ltx_font_italic" id="S3.p7.1.2">the belief state</span>.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p8">
+<p class="ltx_p" id="S3.p8.1"><span class="ltx_text ltx_font_bold" id="S3.p8.1.1">Step 6:</span> It should call <span class="ltx_text ltx_font_typewriter" id="S3.p8.1.2">db_query</span> using <span class="ltx_text ltx_font_italic" id="S3.p8.1.3">the state</span> as input to retrieve records from the database that match the user request.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.p9">
+<p class="ltx_p" id="S3.p9.1"><span class="ltx_text ltx_font_bold" id="S3.p9.1.1">Step 7:</span> As the final step, it observes the retrieved entities and generates an appropriate response.</p>
+</div>
+<div class="ltx_para" id="S3.p10">
+<p class="ltx_p" id="S3.p10.1">We also provide a tool for generating booking reference numbers when the user requests a booking (i.e., <span class="ltx_text ltx_font_typewriter" id="S3.p10.1.1">generate_booking_reference</span>). The agent is given a detailed example in the prompt of a full conversation showing the sequence of thoughts, actions and observations it should follow. It also has access to previous conversation history as well as a description of each tool provided.</p>
+</div>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Experimental Setup</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">We use the LangChain<span class="ltx_note ltx_role_footnote" id="footnote2"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_tag ltx_tag_note">2</span><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.langchain.com/" title="">https://www.langchain.com/</a></span></span></span> library for implementing ReAct-LLM. The prompt details are given in Appendix <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1" title="Appendix A The ReAct Prompt ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">A</span></a>, Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1.F2" title="Figure 2 ‣ Appendix A The ReAct Prompt ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">2</span></a>. We use Langfuse<span class="ltx_note ltx_role_footnote" id="footnote3"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><span class="ltx_tag ltx_tag_note">3</span><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://langfuse.com/" title="">https://langfuse.com/</a></span></span></span> for debugging the reasoning traces and to keep track of the computational costs of our experiments. We experiment with OpenAI GPT-3.5 (<em class="ltx_emph ltx_font_italic" id="S4.p1.1.1">gpt-3.5-turbo-0301</em>) and GPT-4 (<em class="ltx_emph ltx_font_italic" id="S4.p1.1.2">gpt-4-32k</em>) models.
+We first couple our system agent with a simulated user, then proceed to evaluate it with humans.
+</p>
+</div>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Simulated User</h3>
+<div class="ltx_para" id="S4.SS1.p1">
+<p class="ltx_p" id="S4.SS1.p1.1">We first implemented an LLM-based user agent. However, the LLM was not able to end the conversation correctly and occasionally switched its role to play the system, which resulted in inappropriate conversations (see Appendix <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A3" title="Appendix C LLM User Agent Issues ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">C</span></a>). Therefore, we use the agenda-based user simulator <cite class="ltx_cite ltx_citemacro_cite">Schatzmann et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib12" title="">2007</a>)</cite> implementation in <span class="ltx_text ltx_font_smallcaps" id="S4.SS1.p1.1.1">ConvLab 3</span> <cite class="ltx_cite ltx_citemacro_citep">(Zhu et al., <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib21" title="">2022</a>)</cite>.
+It implements a goal generator in agreement with the MultiWOZ dataset, which is used to initialize the agenda. The simulator then generates the semantic representation and converts it into natural language. This is fed to the system agent and the response from the system is sent to the <span class="ltx_text ltx_font_smallcaps" id="S4.SS1.p1.1.2">BERT-NLU</span> of the simulator that returns its semantic representation. This semantic representation is in turn used to update the agenda and thus the goal. The simulator then generates the next utterance based on the system response and the updated agenda.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Evaluation Setup</h3>
+<div class="ltx_para" id="S4.SS2.p1">
+<p class="ltx_p" id="S4.SS2.p1.1">To measure how well the user goals were satisfied by the system, we compute the standard metrics: <span class="ltx_text ltx_font_italic" id="S4.SS2.p1.1.1">success</span>, <span class="ltx_text ltx_font_italic" id="S4.SS2.p1.1.2">book</span>, <span class="ltx_text ltx_font_italic" id="S4.SS2.p1.1.3">inform</span> and <span class="ltx_text ltx_font_italic" id="S4.SS2.p1.1.4">complete</span> rates as well as <span class="ltx_text ltx_font_italic" id="S4.SS2.p1.1.5">the average number of turns<span class="ltx_note ltx_role_footnote" id="footnote4"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup><span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_upright" id="footnote4.1.1.1">4</span></span><span class="ltx_text ltx_font_upright" id="footnote4.5">Note that the lower the average number of turns the better since this means that the system achieves the goal faster.</span></span></span></span></span>, using <span class="ltx_text ltx_font_smallcaps" id="S4.SS2.p1.1.6">ConvLab 3</span> <cite class="ltx_cite ltx_citemacro_citep">(Zhu et al., <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib21" title="">2022</a>)</cite>. A dialogue is successful if the system provided the right information and was able to book the requested entities in agreement with the user goal.
+In addition, we also measure the cost incurred by using OpenAI APIs.
+We compare our ReAct-LLMs to multiple dialogue management baselines: HDC and RL-based, such as proximal policy optimization (PPO) <cite class="ltx_cite ltx_citemacro_cite">Schulman et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib13" title="">2017</a>)</cite> and structured RL with imitation learning (ACGOS) <cite class="ltx_cite ltx_citemacro_cite">Cordier et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib4" title="">2022</a>)</cite>. These baselines use <span class="ltx_text ltx_font_smallcaps" id="S4.SS2.p1.1.7">ConvLab</span>’s pipelines with <span class="ltx_text ltx_font_smallcaps" id="S4.SS2.p1.1.8">BERT NLU</span> and template-based NLG. We simulated 1000 dialogues, using a fixed random seed in the goal generator for reproducibility.</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p2">
+<p class="ltx_p" id="S4.SS2.p2.1">The agenda-based user simulator with a BERT NLU itself may be a potential error source<span class="ltx_note ltx_role_footnote" id="footnote5"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup><span class="ltx_tag ltx_tag_note">5</span>The NLU reported performance is <math alttext="84.10" class="ltx_Math" display="inline" id="footnote5.m1.1"><semantics id="footnote5.m1.1b"><mn id="footnote5.m1.1.1" xref="footnote5.m1.1.1.cmml">84.10</mn><annotation-xml encoding="MathML-Content" id="footnote5.m1.1c"><cn id="footnote5.m1.1.1.cmml" type="float" xref="footnote5.m1.1.1">84.10</cn></annotation-xml><annotation encoding="application/x-tex" id="footnote5.m1.1d">84.10</annotation><annotation encoding="application/x-llamapun" id="footnote5.m1.1e">84.10</annotation></semantics></math> overall F1 <cite class="ltx_cite ltx_citemacro_citet">Zhu et al. (<a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib21" title="">2022</a>)</cite>).</span></span></span>. Therefore, we decided to invite humans to evaluate the system for a fair assessment.
+We opt for an in-house evaluation to ensure high quality.
+Finally, we do a detailed qualitative analysis of a small sample of the dialogue logs to identify the most frequent error sources.</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Results</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">We present in this section the assessment of both simulated and real users.</p>
+</div>
+<figure class="ltx_table" id="S5.T1">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T1.5">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T1.5.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_tt" id="S5.T1.5.5.6" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.5.6.1">Configuration</span></th>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="S5.T1.1.1.1" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.1.1.1.1">Avg Turns <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T1.1.1.1.1.m1.1"><semantics id="S5.T1.1.1.1.1.m1.1a"><mo id="S5.T1.1.1.1.1.m1.1.1" stretchy="false" xref="S5.T1.1.1.1.1.m1.1.1.cmml">↓</mo><annotation-xml encoding="MathML-Content" id="S5.T1.1.1.1.1.m1.1b"><ci id="S5.T1.1.1.1.1.m1.1.1.cmml" xref="S5.T1.1.1.1.1.m1.1.1">↓</ci></annotation-xml><annotation encoding="application/x-tex" id="S5.T1.1.1.1.1.m1.1c">\downarrow</annotation><annotation encoding="application/x-llamapun" id="S5.T1.1.1.1.1.m1.1d">↓</annotation></semantics></math></span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="S5.T1.2.2.2" style="padding-left:5.0pt;padding-right:5.0pt;">
+<table class="ltx_tabular ltx_align_middle" id="S5.T1.2.2.2.1">
+<tr class="ltx_tr" id="S5.T1.2.2.2.1.1">
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T1.2.2.2.1.1.1" style="padding-left:5.0pt;padding-right:5.0pt;">
+<span class="ltx_text ltx_font_bold" id="S5.T1.2.2.2.1.1.1.1">Inform Rate </span><math alttext="\uparrow" class="ltx_Math" display="inline" id="S5.T1.2.2.2.1.1.1.m1.1"><semantics id="S5.T1.2.2.2.1.1.1.m1.1a"><mo id="S5.T1.2.2.2.1.1.1.m1.1.1" stretchy="false" xref="S5.T1.2.2.2.1.1.1.m1.1.1.cmml">↑</mo><annotation-xml encoding="MathML-Content" id="S5.T1.2.2.2.1.1.1.m1.1b"><ci id="S5.T1.2.2.2.1.1.1.m1.1.1.cmml" xref="S5.T1.2.2.2.1.1.1.m1.1.1">↑</ci></annotation-xml><annotation encoding="application/x-tex" id="S5.T1.2.2.2.1.1.1.m1.1c">\uparrow</annotation><annotation encoding="application/x-llamapun" id="S5.T1.2.2.2.1.1.1.m1.1d">↑</annotation></semantics></math>
+</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.2.2.1.2">
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T1.2.2.2.1.2.1" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.2.2.2.1.2.1.1">(P/R/F1)</span></td>
+</tr>
+</table>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="S5.T1.3.3.3" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.3.3.3.1">Book Rate <math alttext="\uparrow" class="ltx_Math" display="inline" id="S5.T1.3.3.3.1.m1.1"><semantics id="S5.T1.3.3.3.1.m1.1a"><mo id="S5.T1.3.3.3.1.m1.1.1" stretchy="false" xref="S5.T1.3.3.3.1.m1.1.1.cmml">↑</mo><annotation-xml encoding="MathML-Content" id="S5.T1.3.3.3.1.m1.1b"><ci id="S5.T1.3.3.3.1.m1.1.1.cmml" xref="S5.T1.3.3.3.1.m1.1.1">↑</ci></annotation-xml><annotation encoding="application/x-tex" id="S5.T1.3.3.3.1.m1.1c">\uparrow</annotation><annotation encoding="application/x-llamapun" id="S5.T1.3.3.3.1.m1.1d">↑</annotation></semantics></math></span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="S5.T1.4.4.4" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.4.4.4.1">Success Rate <math alttext="\uparrow" class="ltx_Math" display="inline" id="S5.T1.4.4.4.1.m1.1"><semantics id="S5.T1.4.4.4.1.m1.1a"><mo id="S5.T1.4.4.4.1.m1.1.1" stretchy="false" xref="S5.T1.4.4.4.1.m1.1.1.cmml">↑</mo><annotation-xml encoding="MathML-Content" id="S5.T1.4.4.4.1.m1.1b"><ci id="S5.T1.4.4.4.1.m1.1.1.cmml" xref="S5.T1.4.4.4.1.m1.1.1">↑</ci></annotation-xml><annotation encoding="application/x-tex" id="S5.T1.4.4.4.1.m1.1c">\uparrow</annotation><annotation encoding="application/x-llamapun" id="S5.T1.4.4.4.1.m1.1d">↑</annotation></semantics></math></span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="S5.T1.5.5.5" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.5.5.1">Complete Rate <math alttext="\uparrow" class="ltx_Math" display="inline" id="S5.T1.5.5.5.1.m1.1"><semantics id="S5.T1.5.5.5.1.m1.1a"><mo id="S5.T1.5.5.5.1.m1.1.1" stretchy="false" xref="S5.T1.5.5.5.1.m1.1.1.cmml">↑</mo><annotation-xml encoding="MathML-Content" id="S5.T1.5.5.5.1.m1.1b"><ci id="S5.T1.5.5.5.1.m1.1.1.cmml" xref="S5.T1.5.5.5.1.m1.1.1">↑</ci></annotation-xml><annotation encoding="application/x-tex" id="S5.T1.5.5.5.1.m1.1c">\uparrow</annotation><annotation encoding="application/x-llamapun" id="S5.T1.5.5.5.1.m1.1d">↑</annotation></semantics></math></span></td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.6.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T1.5.6.1.1" style="padding-left:5.0pt;padding-right:5.0pt;">HDC (semantic level)</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.6.1.2" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text" id="S5.T1.5.6.1.2.1" style="color:#E97132;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.6.1.2.1.1">10.6</span></span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.6.1.3" style="padding-left:5.0pt;padding-right:5.0pt;">87.2 / 98.6 / 90.9</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.6.1.4" style="padding-left:5.0pt;padding-right:5.0pt;">98.6</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.6.1.5" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.6.1.5.1" style="color:#E97132;">97.3</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.6.1.6" style="padding-left:5.0pt;padding-right:5.0pt;">97.9</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.7.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.5.7.2.1" style="padding-left:5.0pt;padding-right:5.0pt;">ACGOS (semantic level)</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.7.2.2" style="padding-left:5.0pt;padding-right:5.0pt;">13.2</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.7.2.3" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text" id="S5.T1.5.7.2.3.1" style="color:#E97132;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.7.2.3.1.1">94.8 / 99.0 / 96.1</span></span></td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.7.2.4" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text" id="S5.T1.5.7.2.4.1" style="color:#E97132;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.7.2.4.1.1">98.7</span></span></td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.7.2.5" style="padding-left:5.0pt;padding-right:5.0pt;">97.0</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.7.2.6" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text" id="S5.T1.5.7.2.6.1" style="color:#E97132;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.7.2.6.1.1">98.2</span></span></td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.8.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T1.5.8.3.1" style="padding-left:5.0pt;padding-right:5.0pt;">BERT NLU + HDC + Tpl.</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.8.3.2" style="padding-left:5.0pt;padding-right:5.0pt;">12</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.8.3.3" style="padding-left:5.0pt;padding-right:5.0pt;">82.8 / 94.1 / 86.2</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.8.3.4" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.8.3.4.1">91.5</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.8.3.5" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.8.3.5.1">83.8</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.8.3.6" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.8.3.6.1">92.7</span></td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.9.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.5.9.4.1" style="padding-left:5.0pt;padding-right:5.0pt;">BERT NLU + PPO + Tpl.</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.9.4.2" style="padding-left:5.0pt;padding-right:5.0pt;">17.8</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.9.4.3" style="padding-left:5.0pt;padding-right:5.0pt;">69.4 / 85.8 / 74.1</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.9.4.4" style="padding-left:5.0pt;padding-right:5.0pt;">86.6</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.9.4.5" style="padding-left:5.0pt;padding-right:5.0pt;">71.7</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.9.4.6" style="padding-left:5.0pt;padding-right:5.0pt;">75.5</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.10.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.5.10.5.1" style="padding-left:5.0pt;padding-right:5.0pt;">BERT NLU + ACGOS + Tpl.</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.10.5.2" style="padding-left:5.0pt;padding-right:5.0pt;">14.8</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.10.5.3" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.10.5.3.1">88.8 / 92.6 / 89.5</span></td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.10.5.4" style="padding-left:5.0pt;padding-right:5.0pt;">86.6</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.10.5.5" style="padding-left:5.0pt;padding-right:5.0pt;">81.7</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.5.10.5.6" style="padding-left:5.0pt;padding-right:5.0pt;">89.1</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.11.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T1.5.11.6.1" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.11.6.1.1">ReAct-LLM (GPT-3.5)</span></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.11.6.2" style="padding-left:5.0pt;padding-right:5.0pt;">15.3</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.11.6.3" style="padding-left:5.0pt;padding-right:5.0pt;">59.0 / 64.9 / 58.3</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.11.6.4" style="padding-left:5.0pt;padding-right:5.0pt;">40.5</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.11.6.5" style="padding-left:5.0pt;padding-right:5.0pt;">28.2</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.5.11.6.6" style="padding-left:5.0pt;padding-right:5.0pt;">45.9</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.5.12.7">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T1.5.12.7.1" style="padding-left:5.0pt;padding-right:5.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T1.5.12.7.1.1">ReAct-LLM (GPT-4)</span></th>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.5.12.7.2" style="padding-left:5.0pt;padding-right:5.0pt;">15.5</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.5.12.7.3" style="padding-left:5.0pt;padding-right:5.0pt;">62.7 / 81.3 / 66.8</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.5.12.7.4" style="padding-left:5.0pt;padding-right:5.0pt;">58.2</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.5.12.7.5" style="padding-left:5.0pt;padding-right:5.0pt;">43.6</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.5.12.7.6" style="padding-left:5.0pt;padding-right:5.0pt;">63.8</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Simulated evaluation on 1000 dialogues (Section <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S4.SS2" title="4.2 Evaluation Setup ‣ 4 Experimental Setup ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">4.2</span></a>). Tpl. stands for templated-based NLG.</figcaption>
+</figure>
+<section class="ltx_subsection" id="S5.SS1">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.1 </span>Simulated Evaluation</h3>
+<div class="ltx_para" id="S5.SS1.p1">
+<p class="ltx_p" id="S5.SS1.p1.1">Table <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5.T1" title="Table 1 ‣ 5 Results ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">1</span></a> compares ReAct-LLM systems with previous works in <span class="ltx_text ltx_font_smallcaps" id="S5.SS1.p1.1.1">ConvLab</span>.
+Note that systems in the first section of the table interact at the semantic level and hence, the metrics show the upper bound of the performance that can be achieved by a full TOD system.
+We observe that ACGOS performs the best only in terms of <span class="ltx_text ltx_font_italic" id="S5.SS1.p1.1.2">inform rate</span>. The HDC policy proves to be superior to other methods with higher <span class="ltx_text ltx_font_italic" id="S5.SS1.p1.1.3">book, success and complete rates</span> and fewer <span class="ltx_text ltx_font_italic" id="S5.SS1.p1.1.4">turns</span>. Both React-LLMs clearly underperform all baselines, with the GPT-4 version distinctly ahead of the GPT-3.5 one.</p>
+</div>
+<div class="ltx_para" id="S5.SS1.p2">
+<p class="ltx_p" id="S5.SS1.p2.1">ReAct-LLMs are costly. Table <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5.T2" title="Table 2 ‣ 5.1 Simulated Evaluation ‣ 5 Results ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">2</span></a> shows the per-token cost for the two GPT models, as well as the total number of tokens used and the approximate total experiment cost.
+The success rate improvement for GPT-4 clearly does not justify the cost difference.</p>
+</div>
+<figure class="ltx_table" id="S5.T2">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T2.1">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S5.T2.1.1.1">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt" id="S5.T2.1.1.1.1" style="padding-left:3.0pt;padding-right:3.0pt;"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2" id="S5.T2.1.1.1.2" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.1.1.2.1">Cost/1M tokens</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2" id="S5.T2.1.1.1.3" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.1.1.3.1">1000 sim. dialogues</span></th>
+</tr>
+<tr class="ltx_tr" id="S5.T2.1.2.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row" id="S5.T2.1.2.2.1" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.2.2.1.1">Model</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column" id="S5.T2.1.2.2.2" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.2.2.2.1">Input</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column" id="S5.T2.1.2.2.3" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.2.2.3.1">Output</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column" id="S5.T2.1.2.2.4" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.2.2.4.1"># Tokens</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column" id="S5.T2.1.2.2.5" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T2.1.2.2.5.1">Total cost</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T2.1.3.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T2.1.3.1.1" style="padding-left:3.0pt;padding-right:3.0pt;">gpt-3.5-turbo-0301</th>
+<td class="ltx_td ltx_align_right ltx_border_t" id="S5.T2.1.3.1.2" style="padding-left:3.0pt;padding-right:3.0pt;">$1.50</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="S5.T2.1.3.1.3" style="padding-left:3.0pt;padding-right:3.0pt;">$2.00</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="S5.T2.1.3.1.4" style="padding-left:3.0pt;padding-right:3.0pt;">40.6M</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="S5.T2.1.3.1.5" style="padding-left:3.0pt;padding-right:3.0pt;">$61.71</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.1.4.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T2.1.4.2.1" style="padding-left:3.0pt;padding-right:3.0pt;">gpt-4-32k</th>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="S5.T2.1.4.2.2" style="padding-left:3.0pt;padding-right:3.0pt;">$60.00</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="S5.T2.1.4.2.3" style="padding-left:3.0pt;padding-right:3.0pt;">$120.00</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="S5.T2.1.4.2.4" style="padding-left:3.0pt;padding-right:3.0pt;">35.8M</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="S5.T2.1.4.2.5" style="padding-left:3.0pt;padding-right:3.0pt;">$2,258.81</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Experiment cost for GPT-3.5 vs. GPT-4.</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S5.SS2">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.2 </span>Human Evaluation</h3>
+<div class="ltx_para" id="S5.SS2.p1">
+<p class="ltx_p" id="S5.SS2.p1.1">Volunteers were asked to chat online with a system, either the HDC baseline or our ReAct-LLM (GPT-3.5), which was randomly assigned. They could start a conversation as many times as they wish. We collected 95 dialogues for each system. Table <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#S5.T3" title="Table 3 ‣ 5.2 Human Evaluation ‣ 5 Results ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">3</span></a> shows that HDC performs better in terms of <span class="ltx_text ltx_font_italic" id="S5.SS2.p1.1.1">success rate</span>, but not by the same margin it had in simulation. We see that the HDC system falls short in the human evaluation compared to the user simulation. Contrary to the simulated evaluation, ReAct-LLM performs much better with real users. Overall, the users are more satisfied with ReAct-LLM than with HDC, despite the better success rate of HDC. We also see the React-LLM system has a slightly lower average number of turns when compared with the simulated evaluation, while the opposite is true for HDC.</p>
+</div>
+<figure class="ltx_table" id="S5.T3">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T3.1">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S5.T3.1.1.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="S5.T3.1.1.1.1" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.1.1.1.1">Dialogue System</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.1.1.1.2" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.1.1.2.1">Avg</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.1.1.1.3" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.1.1.3.1">Satisfaction</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.1.1.1.4" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.1.1.4.1">Success</span></th>
+</tr>
+<tr class="ltx_tr" id="S5.T3.1.2.2">
+<th class="ltx_td ltx_th ltx_th_row" id="S5.T3.1.2.2.1" style="padding-left:3.0pt;padding-right:3.0pt;"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column" id="S5.T3.1.2.2.2" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.2.2.2.1">Turn</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column" id="S5.T3.1.2.2.3" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.2.2.3.1">Rate (%)</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column" id="S5.T3.1.2.2.4" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.2.2.4.1">Rate (%)</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T3.1.3.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T3.1.3.1.1" style="padding-left:3.0pt;padding-right:3.0pt;">BERT NLU + HDC + Tpl.</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.1.3.1.2" style="padding-left:3.0pt;padding-right:3.0pt;">15.91</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.1.3.1.3" style="padding-left:3.0pt;padding-right:3.0pt;">54.10</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.1.3.1.4" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.3.1.4.1">60.00</span></td>
+</tr>
+<tr class="ltx_tr" id="S5.T3.1.4.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T3.1.4.2.1" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.4.2.1.1">ReAct-LLM (GPT-3.5)</span></th>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.1.4.2.2" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.4.2.2.1">14.42</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.1.4.2.3" style="padding-left:3.0pt;padding-right:3.0pt;"><span class="ltx_text ltx_font_bold" id="S5.T3.1.4.2.3.1">65.47</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.1.4.2.4" style="padding-left:3.0pt;padding-right:3.0pt;">50.52</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>Human evaluation results, with 95 dialogues for each system.</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S5.SS3">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.3 </span>Qualitative Analysis</h3>
+<div class="ltx_para" id="S5.SS3.p1">
+<p class="ltx_p" id="S5.SS3.p1.1">By inspecting a sample of the generated dialogues, we identify several issues.
+First, we see that the reasoning traces may just be imitating the examples given in the prompt. This may work for simpler cases with fewer goals to achieve. However, when the goals get larger with multiple domains and the user requests become more complicated, ReAct-LLM struggles to understand the user and to perform tasks accordingly. Beyond that, the reasoning is inconsistent and strays from instructions at times.
+Furthermore, the LLM can come up with creative responses, but struggles to stay within the bounds set by the instructions, often producing invalid dialogue states or not sticking to the set of external tools given.
+Compared to the GPT-3.5 agent, the GPT-4 one is more consistent with respect to the desired reply format, is better at clarifying, and produces more verbose and polite replies.
+More details are shown in Appendix <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2" title="Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">B</span></a> and <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A4" title="Appendix D Manual Analysis of GPT-3.5 vs GPT-4 ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">D</span></a>.</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Conclusion</h2>
+<div class="ltx_para" id="S6.p1">
+<p class="ltx_p" id="S6.p1.1">The performance of ReAct-LLM falls short compared to HDC and RL baselines.
+The baselines perform better mainly due to their fine-grained control at each step in the pipeline. By relying completely on the reasoning abilities of ReAct-LLM, we lose the ability to control its reasoning traces and response generation. Additionally, difficulty in understanding the system requests by the simulator, due to <span class="ltx_text ltx_font_smallcaps" id="S6.p1.1.1">BERT-NLU</span> errors, leads to repeated utterances and thus a higher number of turns on average. On the other hand, our human evaluation shows that ReAct-LLM is preferred by users over the HDC baseline, despite its lower success rate.</p>
+</div>
+</section>
+<section class="ltx_section" id="S7">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">7 </span>Limitations</h2>
+<div class="ltx_para" id="S7.p1">
+<p class="ltx_p" id="S7.p1.1">The user agent might be penalizing the ReAct-LLM system in the user-simulator evaluation, because the <span class="ltx_text ltx_font_smallcaps" id="S7.p1.1.1">BERT-NLU</span> component might fail to correctly detect the system’s intentions.</p>
+</div>
+</section>
+<section class="ltx_section" id="S8">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">8 </span>Ethical Considerations</h2>
+<div class="ltx_para" id="S8.p1">
+<p class="ltx_p" id="S8.p1.1">Due to ethical concerns about work conditions, we did not use crowdsourcing for the human evaluation. Instead, volunteers from our research institution, who were not involved in this work but were aware of the scientific goal, participated without economic incentives.
+This approach minimized pressure and reduced evaluation bias as they were unaware of the models’ nature.
+</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist">
+<li class="ltx_bibitem" id="bib.bib1">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Budzianowski et al. (2018)</span>
+<span class="ltx_bibblock">
+Paweł Budzianowski, Tsung-Hsien Wen, Bo-Hsiang Tseng, Iñigo Casanueva,
+Stefan Ultes, Osman Ramadan, and Milica Gašić. 2018.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://doi.org/10.18653/v1/D18-1547" title="">MultiWOZ - a
+large-scale multi-domain Wizard-of-Oz dataset for task-oriented dialogue
+modelling</a>.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib1.1.1">Proceedings of the 2018 Conference on Empirical Methods in
+Natural Language Processing</em>, pages 5016–5026, Brussels, Belgium.
+Association for Computational Linguistics.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib2">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Casanueva et al. (2018)</span>
+<span class="ltx_bibblock">
+Iñigo Casanueva, Paweł Budzianowski, Pei-Hao Su, Nikola Mrkšić, Tsung-Hsien
+Wen, Stefan Ultes, Lina Rojas-Barahona, Steve Young, and Milica Gašić.
+2018.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://arxiv.org/abs/1711.11023" title="">A benchmarking environment
+for reinforcement learning based task oriented dialogue management</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib2.1.1">Preprint</em>, arXiv:1711.11023.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib3">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Chen et al. (2018)</span>
+<span class="ltx_bibblock">
+Lu Chen, Bowen Tan, Sishan Long, and Kai Yu. 2018.
+
+</span>
+<span class="ltx_bibblock">Structured dialogue policy with graph neural networks.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib3.1.1">Proceedings of the 27th International Conference on
+Computational Linguistics</em>, pages 1257–1268.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib4">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Cordier et al. (2022)</span>
+<span class="ltx_bibblock">
+Thibault Cordier, Tanguy Urvoy, Fabrice Lefèvre, and Lina M. Rojas-Barahona.
+2022.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://arxiv.org/abs/2210.05252" title="">Graph neural network
+policies and imitation learning for multi-domain task-oriented dialogues</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib4.1.1">Preprint</em>, arXiv:2210.05252.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib5">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Cordier et al. (2020)</span>
+<span class="ltx_bibblock">
+Thibault Cordier, Tanguy Urvoy, Lina M. Rojas-Barahona, and Fabrice Lefèvre.
+2020.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://arxiv.org/abs/2012.04687" title="">Diluted near-optimal expert
+demonstrations for guiding dialogue stochastic policy optimisation</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib5.1.1">Preprint</em>, arXiv:2012.04687.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib6">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Hudeček and Dusek (2023)</span>
+<span class="ltx_bibblock">
+Vojtěch Hudeček and Ondrej Dusek. 2023.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://doi.org/10.18653/v1/2023.sigdial-1.21" title="">Are large
+language models all you need for task-oriented dialogue?</a>
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib6.1.1">Proceedings of the 24th Annual Meeting of the Special
+Interest Group on Discourse and Dialogue</em>, pages 216–228, Prague, Czechia.
+Association for Computational Linguistics.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib7">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Lin et al. (2020)</span>
+<span class="ltx_bibblock">
+Zhaojiang Lin, Andrea Madotto, Genta Indra Winata, and Pascale Fung. 2020.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://doi.org/10.18653/v1/2020.emnlp-main.273" title="">MinTL:
+Minimalist Transfer Learning for Task-Oriented Dialogue
+Systems</a>.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib7.1.1">Proceedings of the 2020 Conference on Empirical
+Methods in Natural Language Processing (EMNLP)</em>, pages 3391–3405,
+Online. Association for Computational Linguistics.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib8">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">OpenAI (2023)</span>
+<span class="ltx_bibblock">
+OpenAI. 2023.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://arxiv.org/abs/2303.08774" title="">GPT-4 Technical
+Report</a>.
+
+</span>
+<span class="ltx_bibblock">Technical Report, OpenAI.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib9">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Ouyang et al. (2022)</span>
+<span class="ltx_bibblock">
+Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela
+Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John
+Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda
+Askell, Peter Welinder, Paul Christiano, Jan Leike, and Ryan Lowe. 2022.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://arxiv.org/abs/2203.02155" title="">Training language models to
+follow instructions with human feedback</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib9.1.1">Preprint</em>, arXiv:2203.02155.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib10">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Peng et al. (2021)</span>
+<span class="ltx_bibblock">
+Baolin Peng, Chunyuan Li, Jinchao Li, Shahin Shayandeh, Lars Liden, and
+Jianfeng Gao. 2021.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://doi.org/10.1162/tacl_a_00399" title="">Soloist: Building
+Task Bots at Scale with Transfer Learning and Machine
+Teaching</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib10.1.1">Transactions of the Association for Computational Linguistics</em>,
+9:807–824.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib11">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Rastogi et al. (2020)</span>
+<span class="ltx_bibblock">
+Abhinav Rastogi, Xiaoxue Zang, Srinivas Sunkara, Raghav Gupta, and Pranav
+Khaitan. 2020.
+
+</span>
+<span class="ltx_bibblock">Towards scalable multi-domain conversational agents: The
+schema-guided dialogue dataset.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib11.1.1">Proceedings of the AAAI conference on artificial
+intelligence</em>, volume 34, pages 8689–8696.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib12">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Schatzmann et al. (2007)</span>
+<span class="ltx_bibblock">
+Jost Schatzmann, Blaise Thomson, Karl Weilhammer, Hui Ye, and Steve Young.
+2007.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://aclanthology.org/N07-2038" title="">Agenda-based user
+simulation for bootstrapping a POMDP dialogue system</a>.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib12.1.1">Human Language Technologies 2007: The Conference of the
+North American Chapter of the Association for Computational Linguistics;
+Companion Volume, Short Papers</em>, pages 149–152, Rochester, New York.
+Association for Computational Linguistics.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib13">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Schulman et al. (2017)</span>
+<span class="ltx_bibblock">
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+2017.
+
+</span>
+<span class="ltx_bibblock">Proximal Policy Optimization Algorithms.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib13.1.1">arXiv preprint arXiv:1707.06347</em>.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib14">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Takanobu et al. (2020)</span>
+<span class="ltx_bibblock">
+Ryuichi Takanobu, Qi Zhu, Jinchao Li, Baolin Peng, Jianfeng Gao, and Minlie
+Huang. 2020.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://aclanthology.org/2020.sigdial-1.37/" title="">Is Your
+Goal-Oriented Dialog Model Performing Really Well? Empirical
+Analysis of System-wise Evaluation</a>.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib14.1.1">SIGdial</em>, pages 297–310, Online.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib15">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Ultes et al. (2017)</span>
+<span class="ltx_bibblock">
+Stefan Ultes, Lina M Rojas Barahona, Pei-Hao Su, David Vandyke, Dongho Kim,
+Iñigo Casanueva, Paweł Budzianowski, Nikola Mrkšić,
+Tsung-Hsien Wen, and Milica Gasic. 2017.
+
+</span>
+<span class="ltx_bibblock">Pydial: A multi-domain statistical dialogue system toolkit.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib15.1.1">Proceedings of ACL 2017, System Demonstrations</em>, pages
+73–78.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib16">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Weisz et al. (2018a)</span>
+<span class="ltx_bibblock">
+Gellért Weisz, Paweł Budzianowski, Pei-Hao Su, and Milica
+Gašić. 2018a.
+
+</span>
+<span class="ltx_bibblock">Sample efficient deep reinforcement learning for dialogue systems
+with large action spaces.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib16.1.1">IEEE/ACM Transactions on Audio, Speech, and Language
+Processing</em>, 26(11):2083–2097.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib17">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Weisz et al. (2018b)</span>
+<span class="ltx_bibblock">
+Gellert Weisz, Pawel Budzianowski, Pei-Hao Su, and Milica Gasic.
+2018b.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://doi.org/10.1109/TASLP.2018.2851664" title="">Sample efficient
+deep reinforcement learning for dialogue systems with large action spaces</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib17.1.1">IEEE/ACM Trans. Audio, Speech and Lang. Proc.</em>,
+26(11):2083–2097.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib18">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Wen et al. (2017)</span>
+<span class="ltx_bibblock">
+Tsung-Hsien Wen, David Vandyke, Nikola Mrkšić, Milica
+Gašić, Lina M. Rojas-Barahona, Pei-Hao Su, Stefan Ultes, and Steve
+Young. 2017.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://aclanthology.org/E17-1042" title="">A network-based end-to-end
+trainable task-oriented dialogue system</a>.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib18.1.1">Proceedings of the 15th Conference of the European Chapter
+of the Association for Computational Linguistics: Volume 1, Long Papers</em>,
+pages 438–449, Valencia, Spain. Association for Computational Linguistics.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib19">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Yao et al. (2022)</span>
+<span class="ltx_bibblock">
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+and Yuan Cao. 2022.
+
+</span>
+<span class="ltx_bibblock">React: Synergizing reasoning and acting in language models.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib19.1.1">arXiv preprint arXiv:2210.03629</em>.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib20">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Zhang et al. (2023)</span>
+<span class="ltx_bibblock">
+Xiaoying Zhang, Baolin Peng, Kun Li, Jingyan Zhou, and Helen Meng. 2023.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="https://doi.org/10.18653/v1/2023.findings-emnlp.891" title="">SGP-TOD: Building Task Bots Effortlessly via Schema-Guided
+LLM Prompting</a>.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib20.1.1">Findings of the Association for Computational
+Linguistics: EMNLP 2023</em>, pages 13348–13369, Singapore. Association for
+Computational Linguistics.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib21">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Zhu et al. (2022)</span>
+<span class="ltx_bibblock">
+Qi Zhu, Christian Geishauser, Hsien chin Lin, Carel van Niekerk, Baolin Peng,
+Zheng Zhang, Michael Heck, Nurul Lubis, Dazhen Wan, Xiaochen Zhu, Jianfeng
+Gao, Milica Gašić, and Minlie Huang. 2022.
+
+</span>
+<span class="ltx_bibblock"><a class="ltx_ref ltx_href" href="http://arxiv.org/abs/2211.17148" title="">Convlab-3: A flexible
+dialogue system toolkit based on a unified data format</a>.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bib21.1.1">arXiv preprint arXiv:2211.17148</em>.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib22">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Zhu et al. (2020)</span>
+<span class="ltx_bibblock">
+Qi Zhu, Zheng Zhang, Yan Fang, Xiang Li, Ryuichi Takanobu, Jinchao Li, Baolin
+Peng, Jianfeng Gao, Xiaoyan Zhu, and Minlie Huang. 2020.
+
+</span>
+<span class="ltx_bibblock">Convlab-2: An open-source toolkit for building, evaluating, and
+diagnosing dialogue systems.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bib22.1.1">Proceedings of the 58th Annual Meeting of the Association
+for Computational Linguistics: System Demonstrations</em>, pages 142–149.
+
+</span>
+</li>
+</ul>
+</section>
+<section class="ltx_appendix" id="A1">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">Appendix A </span>The ReAct Prompt</h2>
+<div class="ltx_para" id="A1.p1">
+<p class="ltx_p" id="A1.p1.1">Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1.F2" title="Figure 2 ‣ Appendix A The ReAct Prompt ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">2</span></a> shows an example of the final ReAct prompt, namely Generic Prompt, in which the examples provided in the prompt (Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1.F3" title="Figure 3 ‣ Appendix A The ReAct Prompt ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">3</span></a>) contained a random example from the MultiWOZ dataset. We also experimented with another variation (i.e., Domain Specific), in which the examples provided were dynamically changed based on the domains in the goal. We observe that using domain-specific examples in the prompt has no effect on the performance of the system. Our results (see Table <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1.T4" title="Table 4 ‣ Appendix A The ReAct Prompt ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">4</span></a>) show that the system in fact performs slightly better when there is only one random example irrespective of the domains of the user goal.</p>
+</div>
+<figure class="ltx_figure" id="A1.F2">
+<table class="ltx_tabular ltx_align_middle" id="A1.F2.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.F2.1.1.1">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.1.1.1.1">Respond to the human as helpfully and accurately as possible.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.2.2">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.2.2.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.2.2.1.1">You have access to the following tools:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.3.3">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.3.3.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.3.3.1.1">{tools}</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.4.4">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.4.4.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.4.4.1.1">Use the following format:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.5.5">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.5.5.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.5.5.1.1">Question: the input question you must answer</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.6.6">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.6.6.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.6.6.1.1">Thought: you should always think about what to do</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.7.7">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.7.7.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.7.7.1.1">Action: the action to take, should be one of [{tool_names}]</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.8.8">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.8.8.1.1">Input: the input to the action, should be in JSON object</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.9.9">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.9.9.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.9.9.1.1">containing values for</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.10.10">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.10.10.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.10.10.1.1">the tool parameters</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.11.11">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.11.11.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.11.11.1.1">Observation: the result of the action</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.12.12">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.12.12.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.12.12.1.1">… (this Thought/Action/Input/Observation can repeat N times)</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.13.13">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.13.13.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.13.13.1.1">Thought: I now know the final answer</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.14.14">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.14.14.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.14.14.1.1">Final Answer: the final answer to the original input question</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.15.15">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.15.15.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.15.15.1.1">If you can’t find the answer just say it as your final answer.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.16.16">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.16.16.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.16.16.1.1">You don’t have to use a tool every time, but when you do</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.17.17">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.17.17.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.17.17.1.1">only specify the tool name</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.18.18">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.18.18.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.18.18.1.1">as the Action.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.19.19">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.19.19.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.19.19.1.1">Example:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.20.20">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.20.20.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.20.20.1.1">{examples}</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.21.21">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.21.21.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.21.21.1.1">Begin!</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.22.22">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.22.22.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.22.22.1.1">Chat history:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.23.23">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.23.23.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.23.23.1.1">{history}</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.24.24">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.24.24.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.24.24.1.1">Question: {input}</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F2.1.25.25">
+<td class="ltx_td ltx_align_left" id="A1.F2.1.25.25.1"><span class="ltx_text ltx_font_bold" id="A1.F2.1.25.25.1.1">{agent_scratchpad}</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>The ReAct prompt used to instruct the system LLM agent on how to perform task-oriented dialogue.</figcaption>
+</figure>
+<figure class="ltx_figure" id="A1.F3">
+<table class="ltx_tabular ltx_align_middle" id="A1.F3.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.F3.1.1.1">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.1.1.1.1" style="background-color:#CCCCFF;">Question: <span class="ltx_text ltx_font_medium" id="A1.F3.1.1.1.1.1.1" style="background-color:#CCCCFF;">are there any 3 star hotel -s , guesthouses ,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.2.2">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.2.2.1"><span class="ltx_text" id="A1.F3.1.2.2.1.1" style="background-color:#CCCCFF;">or bed and breakfast s that have wifi that you don’t have to pay for?</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.3.3">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.3.3.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.3.3.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A1.F3.1.3.3.1.1.1" style="background-color:#FFFFCC;"> The user is looking for 3 star hotels, guesthouses or</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.4.4">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.4.4.1"><span class="ltx_text" id="A1.F3.1.4.4.1.1" style="background-color:#FFFFCC;">bed and breakfasts that have free wifi. I can find this information in the</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.5.5">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.5.5.1"><span class="ltx_text" id="A1.F3.1.5.5.1.1" style="background-color:#FFFFCC;">database. For that I need to identify the domain and the slots and values.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.6.6">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.6.6.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.6.6.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A1.F3.1.6.6.1.1.1"> list_domains</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.7.7">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.7.7.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.7.7.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A1.F3.1.7.7.1.1.1"> {}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.8.8">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.8.8.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A1.F3.1.8.8.1.1.1" style="background-color:#FFF2F2;"> [restaurant, hotel, attraction, train, hospital, taxi, police]</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.9.9">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.9.9.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.9.9.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A1.F3.1.9.9.1.1.1" style="background-color:#FFFFCC;"> The domain hotel matches the user’s request. Now I need to</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.10.10">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.10.10.1"><span class="ltx_text" id="A1.F3.1.10.10.1.1" style="background-color:#FFFFCC;">identify the slot names and values.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.11.11">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.11.11.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.11.11.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A1.F3.1.11.11.1.1.1"> list_slots</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.12.12">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.12.12.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.12.12.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A1.F3.1.12.12.1.1.1"> {domain: hotel}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.13.13">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.13.13.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.13.13.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A1.F3.1.13.13.1.1.1" style="background-color:#FFF2F2;"> [address, area, internet, parking, id, location, name, phone,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.14.14">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.14.14.1"><span class="ltx_text" id="A1.F3.1.14.14.1.1" style="background-color:#FFF2F2;">postcode, price, pricerange, stars, takesbookings, type]</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.15.15">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.15.15.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.15.15.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A1.F3.1.15.15.1.1.1" style="background-color:#FFFFCC;"> The user is asking for 3 star hotel -s , guesthouses ,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.16.16">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.16.16.1"><span class="ltx_text" id="A1.F3.1.16.16.1.1" style="background-color:#FFFFCC;">or bed and breakfast s that have wifi that you don’t have to pay for.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.17.17">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.17.17.1"><span class="ltx_text" id="A1.F3.1.17.17.1.1" style="background-color:#FFFFCC;">So the slots are internet: free and stars: 3. Now I need to query the database</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.18.18">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.18.18.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.18.18.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A1.F3.1.18.18.1.1.1"> db_query</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.19.19">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.19.19.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.19.19.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A1.F3.1.19.19.1.1.1"> {domai: hotel, state: {hotel: {internet: yes, stars: 3}}}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.20.20">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.20.20.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.20.20.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A1.F3.1.20.20.1.1.1" style="background-color:#FFF2F2;"> [[{address: 151 hills road, area: south, internet: yes,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.21.21">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.21.21.1"><span class="ltx_text" id="A1.F3.1.21.21.1.1" style="background-color:#FFF2F2;">parking: yes, id: 11, location: [52.1725982, 0.1112224], name:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.22.22">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.22.22.1"><span class="ltx_text" id="A1.F3.1.22.22.1.1" style="background-color:#FFF2F2;">bridge guest house, phone: 01223247942, postcode: cb28rj, price:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.23.23">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.23.23.1"><span class="ltx_text" id="A1.F3.1.23.23.1.1" style="background-color:#FFF2F2;">{double: 75, family: 90, single: 50}, pricerange: moderate,</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.24.24">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.24.24.1"><span class="ltx_text" id="A1.F3.1.24.24.1.1" style="background-color:#FFF2F2;">stars: 3, takesbookings: yes, type: guesthouse, Ref: 00000011},</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.25.25">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.25.25.1"><span class="ltx_text" id="A1.F3.1.25.25.1.1" style="background-color:#FFF2F2;">location: [52.201275, 0.129935], name: gonville hotel, phone:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.26.26">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.26.26.1"><span class="ltx_text" id="A1.F3.1.26.26.1.1" style="background-color:#FFF2F2;">01223366611, postcode: cb11ly, ’price’: {double: 95, family: 119,</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.27.27">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.27.27.1"><span class="ltx_text" id="A1.F3.1.27.27.1.1" style="background-color:#FFF2F2;">single: 79}, pricerange: expensive, stars: 3, takesbookings: yes,</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.28.28">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.28.28.1"><span class="ltx_text" id="A1.F3.1.28.28.1.1" style="background-color:#FFF2F2;">type: hotel, Ref: 00000018}, {address: 156 chesterton road, area:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.29.29">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.29.29.1"><span class="ltx_text" id="A1.F3.1.29.29.1.1" style="background-color:#FFF2F2;">north, internet: yes, parking: yes, id: 19, location:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.30.30">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.30.30.1"><span class="ltx_text" id="A1.F3.1.30.30.1.1" style="background-color:#FFF2F2;">[52.2309912, 0.1295545], name: hamilton lodge, phone: 01223365664,</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.31.31">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.31.31.1"><span class="ltx_text" id="A1.F3.1.31.31.1.1" style="background-color:#FFF2F2;">postcode: cb41da, price: {double: 73, family: 85, single: 50},</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.32.32">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.32.32.1"><span class="ltx_text" id="A1.F3.1.32.32.1.1" style="background-color:#FFF2F2;">pricerange: moderate, stars: 3, takesbookings: yes, type:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.33.33">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.33.33.1"><span class="ltx_text" id="A1.F3.1.33.33.1.1" style="background-color:#FFF2F2;">guesthouse, Ref: 00000019}]</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.34.34">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.34.34.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.34.34.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A1.F3.1.34.34.1.1.1" style="background-color:#FFFFCC;"> I now know the final answer.</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.35.35">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.35.35.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.35.35.1.1" style="background-color:#CCFFCC;">Final Answer:<span class="ltx_text ltx_font_medium" id="A1.F3.1.35.35.1.1.1"> I have found 3 hotels matching your criteria,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.36.36">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.36.36.1"><span class="ltx_text" id="A1.F3.1.36.36.1.1" style="background-color:#CCFFCC;">do you have a price range in mind ?</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.37.37">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.37.37.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.37.37.1.1" style="background-color:#CCCCFF;">Question: <span class="ltx_text ltx_font_medium" id="A1.F3.1.37.37.1.1.1" style="background-color:#CCCCFF;">no, but the hotel should be in the north.</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.38.38">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.38.38.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.38.38.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A1.F3.1.38.38.1.1.1" style="background-color:#FFFFCC;"> A new slot ’area’ with value ’north’ has been identified from</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.39.39">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.39.39.1"><span class="ltx_text" id="A1.F3.1.39.39.1.1" style="background-color:#FFFFCC;">the user request for the same domain ’hotel’. I need to query the database</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.40.40">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.40.40.1"><span class="ltx_text" id="A1.F3.1.40.40.1.1" style="background-color:#FFFFCC;">with the updated slot value.</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.41.41">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.41.41.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.41.41.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A1.F3.1.41.41.1.1.1"> db_query</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.42.42">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.42.42.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.42.42.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A1.F3.1.42.42.1.1.1"> {domain: hotel, state: {hotel: {internet: yes,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.43.43">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.43.43.1"><span class="ltx_text" id="A1.F3.1.43.43.1.1" style="background-color:#FFE6CC;">stars: 3, area: north }}}</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.44.44">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.44.44.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.44.44.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A1.F3.1.44.44.1.1.1" style="background-color:#FFF2F2;"> [{address: 156 chesterton road, area: north, internet: yes,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.45.45">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.45.45.1"><span class="ltx_text" id="A1.F3.1.45.45.1.1" style="background-color:#FFF2F2;">parking: yes, id: 19, location: [52.2309912, 0.1295545], name:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.46.46">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.46.46.1"><span class="ltx_text" id="A1.F3.1.46.46.1.1" style="background-color:#FFF2F2;">hamilton lodge, phone: 01223365664, postcode: cb41da, price:</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.47.47">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.47.47.1"><span class="ltx_text" id="A1.F3.1.47.47.1.1" style="background-color:#FFF2F2;">{double: 73, family: 85, single: 50}, pricerange: moderate,</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.48.48">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.48.48.1"><span class="ltx_text" id="A1.F3.1.48.48.1.1" style="background-color:#FFF2F2;">stars: 3, takesbookings: yes, type: guesthouse, Ref: 00000019}]</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.49.49">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.49.49.1"><span class="ltx_text ltx_font_bold" id="A1.F3.1.49.49.1.1" style="background-color:#CCFFCC;">Final Answer:<span class="ltx_text ltx_font_medium" id="A1.F3.1.49.49.1.1.1"> I have found the hamilton lodge . It is a guesthouse in</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A1.F3.1.50.50">
+<td class="ltx_td ltx_align_left" id="A1.F3.1.50.50.1"><span class="ltx_text" id="A1.F3.1.50.50.1.1" style="background-color:#CCFFCC;">the north. Would you like more information about it?</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>The example provided in the ReAct prompt showing the LLM the steps to be followed for performing TOD.</figcaption>
+</figure>
+<figure class="ltx_table" id="A1.T4">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="A1.T4.1">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="A1.T4.1.1.1">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="A1.T4.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.1.1">Prompt Type</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="A1.T4.1.1.1.2"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.2.1">Avg Turns</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="A1.T4.1.1.1.3">
+<table class="ltx_tabular ltx_align_middle" id="A1.T4.1.1.1.3.1">
+<tr class="ltx_tr" id="A1.T4.1.1.1.3.1.1">
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="A1.T4.1.1.1.3.1.1.1"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.3.1.1.1.1">Inform Rate</span></td>
+</tr>
+<tr class="ltx_tr" id="A1.T4.1.1.1.3.1.2">
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="A1.T4.1.1.1.3.1.2.1"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.3.1.2.1.1">(P/R/F1)</span></td>
+</tr>
+</table>
+</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A1.T4.1.1.1.4"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.4.1">Book Rate</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A1.T4.1.1.1.5"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.5.1">Success Rate</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A1.T4.1.1.1.6"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.6.1">Complete Rate</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.T4.1.2.1">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T4.1.2.1.1"><span class="ltx_text ltx_font_bold" id="A1.T4.1.2.1.1.1">Generic</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T4.1.2.1.2">14.9</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T4.1.2.1.3">56.2 / 67.5 / 58.6</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T4.1.2.1.4">36.8</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T4.1.2.1.5">28.3</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T4.1.2.1.6">48.5</td>
+</tr>
+<tr class="ltx_tr" id="A1.T4.1.3.2">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_bb" id="A1.T4.1.3.2.1"><span class="ltx_text ltx_font_bold" id="A1.T4.1.3.2.1.1">Domain Specific</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_bb" id="A1.T4.1.3.2.2">14.0</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_bb" id="A1.T4.1.3.2.3">61.1 / 63.2 / 59.1</th>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A1.T4.1.3.2.4">35.4</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A1.T4.1.3.2.5">22.2</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A1.T4.1.3.2.6">47.4</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 4: </span>Evaluation of the performance of the ReAct TOD system when domain specific examples are given. This experiment was run using GPT-3.5 for 100 dialogue simulations.</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A2">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">Appendix B </span>Qualitative Analysis</h2>
+<div class="ltx_para" id="A2.p1">
+<p class="ltx_p" id="A2.p1.1">In this section, we look at the dialogues generated in simulation to identify what the system did well and what it lacks when performing task-oriented dialogue. We randomly selected 50 dialogues from the 1000 simulations for GPT-3.5 using generic examples (cf. Appendix <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A1" title="Appendix A The ReAct Prompt ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">A</span></a>), and we look at the dialogues from the perspective of the system.</p>
+</div>
+<section class="ltx_paragraph" id="A2.SS0.SSS0.Px1">
+<h4 class="ltx_title ltx_title_paragraph">System produces creative responses but does not stick to the instructions</h4>
+<div class="ltx_para" id="A2.SS0.SSS0.Px1.p1">
+<p class="ltx_p" id="A2.SS0.SSS0.Px1.p1.1">An advantage of using LLMs for dialogue tasks is that the system is able to rephrase its response in cases where the user repeats the request. This can be seen in the example in Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.F4" title="Figure 4 ‣ System produces creative responses but does not stick to the instructions ‣ Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">4</span></a>. However, it should be noted that the system does not have access to a tool that can help it retrieve the details of the booking. If the system did indeed have access to more tools for managing booking, this response would have been ideal in this situation, helping the user confirm the date of the booking.</p>
+</div>
+<figure class="ltx_figure" id="A2.F4">
+<table class="ltx_tabular ltx_align_middle" id="A2.F4.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A2.F4.1.1.1">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.1.1.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F4.1.1.1.1.1.1" style="background-color:#CCCCFF;"> I need a hotel please . Can you help me find a hotel called the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.2.2">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.2.2.1"><span class="ltx_text" id="A2.F4.1.2.2.1.1" style="background-color:#CCCCFF;">home from home ?</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.3.3">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.3.3.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.3.3.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F4.1.3.3.1.1.1"> I have found the hotel ḧome from home.̈ It is a guesthouse in</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.4.4">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.4.4.1"><span class="ltx_text" id="A2.F4.1.4.4.1.1" style="background-color:#CCFFCC;">the north with a moderate price range and 4 stars. Would you like more</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.5.5">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.5.5.1"><span class="ltx_text" id="A2.F4.1.5.5.1.1" style="background-color:#CCFFCC;">information about it?</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.6.6">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.6.6.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.6.6.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F4.1.6.6.1.1.1" style="background-color:#CCCCFF;">What about 2 nights ? That will work . Can you make a reservation</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.7.7">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.7.7.1"><span class="ltx_text" id="A2.F4.1.7.7.1.1" style="background-color:#CCCCFF;">for 3 people, please ? On friday please.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.8.8">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.8.8.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F4.1.8.8.1.1.1"> Your booking reference for a reservation for 3 people for</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.9.9">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.9.9.1"><span class="ltx_text" id="A2.F4.1.9.9.1.1" style="background-color:#CCFFCC;">2 nights at the home from home guesthouse on Friday is 00000021.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.10.10">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.10.10.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.10.10.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F4.1.10.10.1.1.1" style="background-color:#CCCCFF;">I need a room starting on friday .</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.11.11">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.11.11.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.11.11.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F4.1.11.11.1.1.1"> Your booking reference for a room at the home from home</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.12.12">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.12.12.1"><span class="ltx_text" id="A2.F4.1.12.12.1.1" style="background-color:#CCFFCC;">guesthouse starting on Friday is 00000021.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.13.13">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.13.13.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.13.13.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F4.1.13.13.1.1.1" style="background-color:#CCCCFF;">I want to check in on friday .</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.14.14">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.14.14.1"><span class="ltx_text ltx_font_bold" id="A2.F4.1.14.14.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F4.1.14.14.1.1.1"> I’m sorry, I couldn’t find the check-in date for the reservation</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.15.15">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.15.15.1"><span class="ltx_text" id="A2.F4.1.15.15.1.1" style="background-color:#CCFFCC;">made earlier. Please provide me with the booking reference again so I</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F4.1.16.16">
+<td class="ltx_td ltx_align_left" id="A2.F4.1.16.16.1"><span class="ltx_text" id="A2.F4.1.16.16.1.1" style="background-color:#CCFFCC;">can check the details.</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 4: </span>An excerpt of a conversation where the LLM shows creative ways to handle repeated user requests.</figcaption>
+</figure>
+</section>
+<section class="ltx_paragraph" id="A2.SS0.SSS0.Px2">
+<h4 class="ltx_title ltx_title_paragraph">Smaller goals are easier to achieve</h4>
+<div class="ltx_para" id="A2.SS0.SSS0.Px2.p1">
+<p class="ltx_p" id="A2.SS0.SSS0.Px2.p1.1">Analysing the conversations, an interesting observation that stood out was that the shorter the goal, the easier and quicker it was for the system to achieve. See the example in Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.F5" title="Figure 5 ‣ Smaller goals are easier to achieve ‣ Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">5</span></a> where the goal is to request the phone and postcode of a police station. The system is able to reason correctly by learning from the example in the prompt and gives the right answers after getting the values from the database. However, it might also be the system imitating the example.</p>
+</div>
+<figure class="ltx_figure" id="A2.F5">
+<table class="ltx_tabular ltx_align_middle" id="A2.F5.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A2.F5.1.1.1">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.1.1.1.1">goal: { police: { info: {}, reqt: { postcode: ?, address: ?, phone: ? }}},</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.2.2">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.2.2.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.2.2.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F5.1.2.2.1.1.1" style="background-color:#CCCCFF;"> Hello , I have been robbed . Can you please help me get in touch</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.3.3">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.3.3.1"><span class="ltx_text" id="A2.F5.1.3.3.1.1" style="background-color:#CCCCFF;">with the police ?</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.4.4">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.4.4.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.4.4.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F5.1.4.4.1.1.1" style="background-color:#FFFFCC;"> The user is requesting assistance to get in touch with the police.</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.5.5">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.5.5.1"><span class="ltx_text" id="A2.F5.1.5.5.1.1" style="background-color:#FFFFCC;">I need to identify the correct domain for this request.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.6.6">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.6.6.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.6.6.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F5.1.6.6.1.1.1"> list_domains</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.7.7">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.7.7.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.7.7.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F5.1.7.7.1.1.1"> {}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.8.8">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.8.8.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A2.F5.1.8.8.1.1.1" style="background-color:#FFF2F2;"> [restaurant, hotel, attraction, train, hospital, taxi, police]</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.9.9">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.9.9.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.9.9.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F5.1.9.9.1.1.1" style="background-color:#FFFFCC;"> The domain <em class="ltx_emph ltx_font_italic" id="A2.F5.1.9.9.1.1.1.1" style="background-color:#FFFFCC;">police</em> matches the user’s request. I need to find the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.10.10">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.10.10.1"><span class="ltx_text" id="A2.F5.1.10.10.1.1" style="background-color:#FFFFCC;">available slots for this domain</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.11.11">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.11.11.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.11.11.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F5.1.11.11.1.1.1"> list_slots</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.12.12">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.12.12.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.12.12.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F5.1.12.12.1.1.1"> {domain: police}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.13.13">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.13.13.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.13.13.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A2.F5.1.13.13.1.1.1" style="background-color:#FFF2F2;"> [name, address, id, phone, postcode]</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.14.14">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.14.14.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.14.14.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F5.1.14.14.1.1.1" style="background-color:#FFFFCC;">The user has not provided any specific information about the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.15.15">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.15.15.1"><span class="ltx_text" id="A2.F5.1.15.15.1.1" style="background-color:#FFFFCC;">police station they need to contact. I need to ask for more information or</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.16.16">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.16.16.1"><span class="ltx_text" id="A2.F5.1.16.16.1.1" style="background-color:#FFFFCC;">provide a general query to retrieve a list of police stations</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.17.17">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.17.17.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.17.17.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F5.1.17.17.1.1.1"> db_query</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.18.18">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.18.18.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.18.18.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F5.1.18.18.1.1.1"> {domain: police, state: {police: {}}}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.19.19">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.19.19.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.19.19.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A2.F5.1.19.19.1.1.1" style="background-color:#FFF2F2;"> [{name: Parkside Police Station, address: Parkside,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.20.20">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.20.20.1"><span class="ltx_text" id="A2.F5.1.20.20.1.1" style="background-color:#FFF2F2;">Cambridge, id: 0, phone: 01223358966, postcode: cb11jg}]</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.21.21">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.21.21.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.21.21.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F5.1.21.21.1.1.1"> I have found one police station matching your request. The</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.22.22">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.22.22.1"><span class="ltx_text" id="A2.F5.1.22.22.1.1" style="background-color:#CCFFCC;">Parkside Police Station is located at Parkside, Cambridge. Would you</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.23.23">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.23.23.1"><span class="ltx_text" id="A2.F5.1.23.23.1.1" style="background-color:#CCFFCC;">like me to provide you with their phone number?</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.24.24">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.24.24.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.24.24.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F5.1.24.24.1.1.1" style="background-color:#CCCCFF;">Can you give me the phone number please ? Can I please have the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.25.25">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.25.25.1"><span class="ltx_text" id="A2.F5.1.25.25.1.1" style="background-color:#CCCCFF;">postcode of the police station as well ?</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.26.26">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.26.26.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.26.26.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F5.1.26.26.1.1.1" style="background-color:#FFFFCC;"> The user is asking for the phone number and postcode of the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.27.27">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.27.27.1"><span class="ltx_text" id="A2.F5.1.27.27.1.1" style="background-color:#FFFFCC;">police station. I can retrieve this information from the database using the</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.28.28">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.28.28.1"><span class="ltx_text" id="A2.F5.1.28.28.1.1" style="background-color:#FFFFCC;">domain ’police’ and the slot ’phone’ and ’postcode’</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.29.29">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.29.29.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.29.29.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F5.1.29.29.1.1.1"> db_query</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.30.30">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.30.30.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.30.30.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F5.1.30.30.1.1.1"> {domain: police, state: {police: {}}}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.31.31">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.31.31.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.31.31.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A2.F5.1.31.31.1.1.1" style="background-color:#FFF2F2;"> [{name: Parkside Police Station, address: Parkside,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.32.32">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.32.32.1"><span class="ltx_text" id="A2.F5.1.32.32.1.1" style="background-color:#FFF2F2;">Cambridge, id: 0, phone: 01223358966, postcode: cb11jg}]</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.33.33">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.33.33.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.33.33.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F5.1.33.33.1.1.1"> The phone number for Parkside Police Station is 01223358966</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.34.34">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.34.34.1"><span class="ltx_text" id="A2.F5.1.34.34.1.1" style="background-color:#CCFFCC;">and the postcode is cb11jg.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.35.35">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.35.35.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.35.35.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F5.1.35.35.1.1.1" style="background-color:#CCCCFF;">You were great . Goodbye .</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F5.1.36.36">
+<td class="ltx_td ltx_align_left" id="A2.F5.1.36.36.1"><span class="ltx_text ltx_font_bold" id="A2.F5.1.36.36.1.1" style="background-color:#CCFFCC;">System:<span class="ltx_text ltx_font_medium" id="A2.F5.1.36.36.1.1.1"> Goodbye! Have a nice day!</span></span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 5: </span>A full conversation for a simple goal.</figcaption>
+</figure>
+</section>
+<section class="ltx_paragraph" id="A2.SS0.SSS0.Px3">
+<h4 class="ltx_title ltx_title_paragraph">Reasoning is not always consistent</h4>
+<div class="ltx_para" id="A2.SS0.SSS0.Px3.p1">
+<p class="ltx_p" id="A2.SS0.SSS0.Px3.p1.1">The main factor we are assessing in this system is an LLM’s capabilities to reason and perform actions based on the reasoning. Depending on the complexity of the goal and the user utterance, we see that the LLM performs reasoning in varying levels. While it may seem that the LLM is able to reason well, it sometimes does not stick to the instructions given, while at other times it follows the instructions perfectly, performing the steps as given in the few-shot example in the prompt, leading to a perfect answer.</p>
+</div>
+</section>
+<section class="ltx_paragraph" id="A2.SS0.SSS0.Px4">
+<h4 class="ltx_title ltx_title_paragraph">Issues generating the correct dialogue state</h4>
+<div class="ltx_para" id="A2.SS0.SSS0.Px4.p1">
+<p class="ltx_p" id="A2.SS0.SSS0.Px4.p1.1">In TOD, the system should accumulate the belief state in order to answer the user’s queries correctly. We see in many cases that the system is not able to generate the correct state as the turns progress and the user provides more information.</p>
+</div>
+<div class="ltx_para" id="A2.SS0.SSS0.Px4.p2">
+<p class="ltx_p" id="A2.SS0.SSS0.Px4.p2.1">Hallucinations are a major issue in LLMs. We see that this is the case even when using LLMs for TOD. Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.F6" title="Figure 6 ‣ Issues generating the correct dialogue state ‣ Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">6</span></a> shows that the LLM produces invalid slots – ‘time’ instead of ‘arriveBy’ in this case.</p>
+</div>
+<div class="ltx_para" id="A2.SS0.SSS0.Px4.p3">
+<p class="ltx_p" id="A2.SS0.SSS0.Px4.p3.1">Another issue that was found was that the system fills the wrong slots with the wrong information as shown in the example in Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A2.F7" title="Figure 7 ‣ Issues generating the correct dialogue state ‣ Appendix B Qualitative Analysis ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">7</span></a>. Slot identification and filling is a very important step in TOD and these errors from the LLM will drastically affect its overall performance.</p>
+</div>
+<figure class="ltx_figure" id="A2.F6">
+<table class="ltx_tabular ltx_align_middle" id="A2.F6.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A2.F6.1.1.1">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A2.F6.1.1.1.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F6.1.1.1.1.1.1" style="background-color:#CCCCFF;"> I would also like to book a train , please . I will leave on monday.</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.2.2">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.2.2.1"><span class="ltx_text" id="A2.F6.1.2.2.1.1" style="background-color:#CCCCFF;">I need to book a train to london kings cross . I would like to leave after</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.3.3">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.3.3.1"><span class="ltx_text" id="A2.F6.1.3.3.1.1" style="background-color:#CCCCFF;">14:15</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.4.4">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.4.4.1"><span class="ltx_text ltx_font_bold" id="A2.F6.1.4.4.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A2.F6.1.4.4.1.1.1"> The only available train that matches your request is TR6028</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.5.5">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.5.5.1"><span class="ltx_text" id="A2.F6.1.5.5.1.1" style="background-color:#CCFFCC;">departing from Cambridge at 15:00 and arriving at London Kings Cross</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.6.6">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.6.6.1"><span class="ltx_text" id="A2.F6.1.6.6.1.1" style="background-color:#CCFFCC;">at 15:51 on Monday. Your booking reference is 00000005. Is there</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.7.7">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.7.7.1"><span class="ltx_text" id="A2.F6.1.7.7.1.1" style="background-color:#CCFFCC;">anything else I can help you with?</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.8.8">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A2.F6.1.8.8.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F6.1.8.8.1.1.1" style="background-color:#CCCCFF;"> I need it to depart from cambridge.</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.9.9">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.9.9.1"><span class="ltx_text ltx_font_bold" id="A2.F6.1.9.9.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F6.1.9.9.1.1.1" style="background-color:#FFFFCC;"> The user has provided new information that the train should</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.10.10">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.10.10.1"><span class="ltx_text" id="A2.F6.1.10.10.1.1" style="background-color:#FFFFCC;">depart from Cambridge. I need to update the query to include this</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.11.11">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.11.11.1"><span class="ltx_text" id="A2.F6.1.11.11.1.1" style="background-color:#FFFFCC;">information.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.12.12">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.12.12.1"><span class="ltx_text ltx_font_bold" id="A2.F6.1.12.12.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F6.1.12.12.1.1.1"> db_query</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.13.13">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.13.13.1"><span class="ltx_text ltx_font_bold" id="A2.F6.1.13.13.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F6.1.13.13.1.1.1"> { domain: train, state: {train: {departure: cambridge, destination:</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F6.1.14.14">
+<td class="ltx_td ltx_align_left" id="A2.F6.1.14.14.1"><span class="ltx_text" id="A2.F6.1.14.14.1.1" style="background-color:#FFE6CC;">london kings cross, day: monday, <span class="ltx_text ltx_font_bold" id="A2.F6.1.14.14.1.1.1">time: after 14:15</span>}}}</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 6: </span>An excerpt showing the system hallucinating the slot name.</figcaption>
+</figure>
+<figure class="ltx_figure" id="A2.F7">
+<table class="ltx_tabular ltx_align_middle" id="A2.F7.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A2.F7.1.1.1">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.1.1.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A2.F7.1.1.1.1.1.1" style="background-color:#CCCCFF;"> Howdy , I need a train heading into london kings cross . I need</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.2.2">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.2.2.1"><span class="ltx_text" id="A2.F7.1.2.2.1.1" style="background-color:#CCCCFF;">a train leaving after 16:30. The train should leave on wednesday</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.3.3">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.3.3.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.3.3.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F7.1.3.3.1.1.1" style="background-color:#FFFFCC;"> The user is requesting for a train leaving after 16:30 heading</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.4.4">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.4.4.1"><span class="ltx_text" id="A2.F7.1.4.4.1.1" style="background-color:#FFFFCC;">to London Kings Cross on Wednesday. I need to identify the domain and</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.5.5">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.5.5.1"><span class="ltx_text" id="A2.F7.1.5.5.1.1" style="background-color:#FFFFCC;">and slots for this request.</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.6.6">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.6.6.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.6.6.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F7.1.6.6.1.1.1"> list_domains</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.7.7">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.7.7.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.7.7.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F7.1.7.7.1.1.1"> {}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.8.8">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.8.8.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A2.F7.1.8.8.1.1.1" style="background-color:#FFF2F2;"> [restaurant, hotel, attraction, train, hospital, taxi, police]</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.9.9">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.9.9.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.9.9.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F7.1.9.9.1.1.1" style="background-color:#FFFFCC;"> The domain for this request is ’train’. Now I need to identify the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.10.10">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.10.10.1"><span class="ltx_text" id="A2.F7.1.10.10.1.1" style="background-color:#FFFFCC;">slots and values</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.11.11">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.11.11.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.11.11.1.1" style="background-color:#FFE6CC;">Action:<span class="ltx_text ltx_font_medium" id="A2.F7.1.11.11.1.1.1"> list_slots</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.12.12">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.12.12.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.12.12.1.1" style="background-color:#FFE6CC;">Input:<span class="ltx_text ltx_font_medium" id="A2.F7.1.12.12.1.1.1"> {domain: train}</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.13.13">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.13.13.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.13.13.1.1" style="background-color:#FFF2F2;">Observation:<span class="ltx_text ltx_font_medium" id="A2.F7.1.13.13.1.1.1" style="background-color:#FFF2F2;"> [’arriveBy’, ’day’, ’departure’, ’destination’, ’duration’</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.14.14">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.14.14.1"><span class="ltx_text" id="A2.F7.1.14.14.1.1" style="background-color:#FFF2F2;">’leaveAt’, ’price’, ’trainID’]</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.15.15">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.15.15.1"><span class="ltx_text ltx_font_bold" id="A2.F7.1.15.15.1.1" style="background-color:#FFFFCC;">Thought:<span class="ltx_text ltx_font_medium" id="A2.F7.1.15.15.1.1.1" style="background-color:#FFFFCC;">The slots for this request are </span>’departure’: after 16:30<span class="ltx_text ltx_font_medium" id="A2.F7.1.15.15.1.1.2" style="background-color:#FFFFCC;">,</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.16.16">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.16.16.1"><span class="ltx_text" id="A2.F7.1.16.16.1.1" style="background-color:#FFFFCC;">’destination’: London Kings Cross, and ’day’: Wednesday. I need to query</span></td>
+</tr>
+<tr class="ltx_tr" id="A2.F7.1.17.17">
+<td class="ltx_td ltx_align_left" id="A2.F7.1.17.17.1"><span class="ltx_text" id="A2.F7.1.17.17.1.1" style="background-color:#FFFFCC;">the database to find the available trains</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 7: </span>An excerpt showing the wrong slot being filled by the system. <span class="ltx_text ltx_font_bold" id="A2.F7.4.1">departure</span> refers to the departure station and <span class="ltx_text ltx_font_bold" id="A2.F7.5.2">leaveAt</span> refers to the departure time.</figcaption>
+</figure>
+</section>
+<section class="ltx_paragraph" id="A2.SS0.SSS0.Px5">
+<h4 class="ltx_title ltx_title_paragraph">No clarifying questions from the system</h4>
+<div class="ltx_para" id="A2.SS0.SSS0.Px5.p1">
+<p class="ltx_p" id="A2.SS0.SSS0.Px5.p1.1">In a complex task such as task-oriented dialogue, it is essential that the system understands the user request clearly in order to be able to answer correctly. Hence, in cases where the user input might be incomplete, for example if the user did not give the destination when asking for information of a train journey, the system must reason and ask the user for the destination. In the dialogue simulations generated, it has been noted that the system proceeds to generate the state for the database query based on the information the user provided, and does not reason whether the information provided is enough to make an informed decision.</p>
+</div>
+</section>
+<section class="ltx_paragraph" id="A2.SS0.SSS0.Px6">
+<h4 class="ltx_title ltx_title_paragraph">Other Observations</h4>
+<div class="ltx_para" id="A2.SS0.SSS0.Px6.p1">
+<ul class="ltx_itemize" id="A2.I1">
+<li class="ltx_item" id="A2.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="A2.I1.i1.p1">
+<p class="ltx_p" id="A2.I1.i1.p1.1"><span class="ltx_text ltx_font_bold" id="A2.I1.i1.p1.1.1">System is too honest at times</span> It has been observed that the system responds too honestly and does not stick to the tools and instructions provided to answer the user query. For example, when asked to book a table at a restaurant, the system responded with <span class="ltx_text ltx_font_italic" id="A2.I1.i1.p1.1.2">I’m sorry, but I cannot complete the booking as I am not programmed to interact with the restaurant’s booking system.</span> while it was provided with the <span class="ltx_text ltx_font_typewriter" id="A2.I1.i1.p1.1.3">get_booking_reference</span> tool to perform the booking.</p>
+</div>
+</li>
+<li class="ltx_item" id="A2.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="A2.I1.i2.p1">
+<p class="ltx_p" id="A2.I1.i2.p1.1"><span class="ltx_text ltx_font_bold" id="A2.I1.i2.p1.1.1">American vs British English</span> We see that the system always uses American English while generating the response even though the user input and the dataset and examples were provided in British English. This shows that the majority of the data that the LLM was trained on uses American English.</p>
+</div>
+</li>
+<li class="ltx_item" id="A2.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="A2.I1.i3.p1">
+<p class="ltx_p" id="A2.I1.i3.p1.1"><span class="ltx_text ltx_font_bold" id="A2.I1.i3.p1.1.1">The system performs additional steps without being asked</span> The LLM sometimes tends to get ahead of itself when performing task-oriented dialogue. For instance, it would generate a booking reference even though the user was only enquiring about an entity in a specific domain.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section class="ltx_appendix" id="A3">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">Appendix C </span>LLM User Agent Issues</h2>
+<div class="ltx_para" id="A3.p1">
+<p class="ltx_p" id="A3.p1.1">This section looks at the conversation from a user’s perspective to identify the reasons the conversation did not go well when we used an LLM as the user agent.</p>
+</div>
+<section class="ltx_paragraph" id="A3.SS0.SSS0.Px1">
+<h4 class="ltx_title ltx_title_paragraph">LLM switches roles with the system</h4>
+<div class="ltx_para" id="A3.SS0.SSS0.Px1.p1">
+<p class="ltx_p" id="A3.SS0.SSS0.Px1.p1.1">During the initial experiments where the user agent was also played by an LLM, we noticed an interesting phenomenon. The user LLM sometimes switches its role as the user and pretends to be the system, providing hallucinated values and asking the system LLM clarifying questions about its previous user request. Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A3.F8" title="Figure 8 ‣ LLM switches roles with the system ‣ Appendix C LLM User Agent Issues ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">8</span></a> shows one such example where the user provides the system with information it made up.</p>
+</div>
+<figure class="ltx_figure" id="A3.F8">
+<table class="ltx_tabular ltx_align_middle" id="A3.F8.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A3.F8.1.1.1">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A3.F8.1.1.1.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A3.F8.1.1.1.1.1.1" style="background-color:#CCCCFF;"> What type of car do you need for the taxi?</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.2.2">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.2.2.1"><span class="ltx_text ltx_font_bold" id="A3.F8.1.2.2.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A3.F8.1.2.2.1.1.1">I’m sorry, but I don’t have information about the type of car</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.3.3">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.3.3.1">
+<span class="ltx_text" id="A3.F8.1.3.3.1.1" style="background-color:#CCFFCC;">needed for the taxi.</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.4.4">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.4.4.1"><span class="ltx_text ltx_font_bold" id="A3.F8.1.4.4.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A3.F8.1.4.4.1.1.1" style="background-color:#CCCCFF;">System: For your restaurant booking, I can inform you that the</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.5.5">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.5.5.1"><span class="ltx_text" id="A3.F8.1.5.5.1.1" style="background-color:#CCCCFF;">restaurant is not available at 5:30 pm, but it is available at 5:45 pm.</span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.6.6">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.6.6.1"><span class="ltx_text" id="A3.F8.1.6.6.1.1" style="background-color:#CCCCFF;">Would you like me to book a table for 8 people at Pizza Hut City Centre</span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.7.7">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.7.7.1"><span class="ltx_text" id="A3.F8.1.7.7.1.1" style="background-color:#CCCCFF;">at 5:45 pm?</span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.8.8">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.8.8.1"><span class="ltx_text ltx_font_bold" id="A3.F8.1.8.8.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A3.F8.1.8.8.1.1.1">I’m sorry, I couldn’t understand your request. Please provide</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A3.F8.1.9.9">
+<td class="ltx_td ltx_align_left" id="A3.F8.1.9.9.1"><span class="ltx_text" id="A3.F8.1.9.9.1.1" style="background-color:#CCFFCC;">a valid input.</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 8: </span>Excerpts showing the LLM prompted to play the user acting like the system.</figcaption>
+</figure>
+</section>
+<section class="ltx_paragraph" id="A3.SS0.SSS0.Px2">
+<h4 class="ltx_title ltx_title_paragraph">Unable to end the conversation based on goal fulfillment</h4>
+<div class="ltx_para" id="A3.SS0.SSS0.Px2.p1">
+<p class="ltx_p" id="A3.SS0.SSS0.Px2.p1.1">The user agent was not able to end the conversation based on the goal and conversation history. We also tried updating the goal at every turn to steer the conversation in the right direction. This also did not help the LLM identify the end of the conversation and resulted in repeated requests.</p>
+</div>
+</section>
+</section>
+<section class="ltx_appendix" id="A4">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">Appendix D </span>Manual Analysis of GPT-3.5 vs GPT-4</h2>
+<div class="ltx_para" id="A4.p1">
+<p class="ltx_p" id="A4.p1.1">We compared the generated outputs for both GPT-3.5 <cite class="ltx_cite ltx_citemacro_citep">(Ouyang et al., <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib9" title="">2022</a>)</cite> and GPT-4 <cite class="ltx_cite ltx_citemacro_citep">(OpenAI, <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#bib.bib8" title="">2023</a>)</cite> for 50 randomly selected goals. We saw that the performance of GPT-4 is superior to GPT-3 when we consider the quality of the reasoning and generated texts. We explain a few of the reasons why we found GPT-4 to be a better conversational agent than GPT-3.5 below.</p>
+</div>
+<section class="ltx_paragraph" id="A4.SS0.SSS0.Px1">
+<h4 class="ltx_title ltx_title_paragraph">Parsing Errors</h4>
+<div class="ltx_para" id="A4.SS0.SSS0.Px1.p1">
+<p class="ltx_p" id="A4.SS0.SSS0.Px1.p1.1">GPT-4 is able to generate the output in the required format when compared to GPT-3.5. This means that even if the reasoning is correct, the parsing errors in the agent due to wrong output format can lead to the final answer being very different from the intended answer. This leads to miscommunication between the user and the system. GPT-4 is more adept at conforming to the prescribed format than GPT-3.5 resulting in better performance.</p>
+</div>
+</section>
+<section class="ltx_paragraph" id="A4.SS0.SSS0.Px2">
+<h4 class="ltx_title ltx_title_paragraph">Clarifying and verifying user requests</h4>
+<div class="ltx_para" id="A4.SS0.SSS0.Px2.p1">
+<p class="ltx_p" id="A4.SS0.SSS0.Px2.p1.1">GPT-4 asks clarifying questions and verifies with the user before performing important steps such as booking a service. On the other hand, GPT-3.5 does the booking in the same turn without consulting the user. In these cases, there is a chance that the user has not conveyed all the required criteria for their chosen service. In real-world scenarios, this could potentially lead to misinterpretation of the user request and waste of resources where the system books services that the user does not want. Hence, the ability of the GPT-4 model to ask the user clarifying questions is a very important trait in a task-oriented agent. See Figure <a class="ltx_ref" href="https://arxiv.org/html/2412.01262v1#A4.F9" title="Figure 9 ‣ Clarifying and verifying user requests ‣ Appendix D Manual Analysis of GPT-3.5 vs GPT-4 ‣ Do Large Language Models with Reasoning and Acting Meet the Needs of Task-Oriented Dialogue?"><span class="ltx_text ltx_ref_tag">9</span></a> for a sample conversation on the same goal and how GPT-4 and GPT-3.5 differ.</p>
+</div>
+<figure class="ltx_figure" id="A4.F9">
+<table class="ltx_tabular ltx_align_middle" id="A4.F9.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A4.F9.1.1.1">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.1.1.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.1.1.1.1">GPT-4</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.2.2">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.2.2.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.2.2.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A4.F9.1.2.2.1.1.1" style="background-color:#CCCCFF;">I would also like to book a train , please . I will leave on</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.3.3">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.3.3.1"><span class="ltx_text" id="A4.F9.1.3.3.1.1" style="background-color:#CCCCFF;">monday. I need to book a train to london kings cross . I would like</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.4.4">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.4.4.1"><span class="ltx_text" id="A4.F9.1.4.4.1.1" style="background-color:#CCCCFF;">to leave after 14:15.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.5.5">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.5.5.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.5.5.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A4.F9.1.5.5.1.1.1"> I have found a train for you. It departs from Cambridge at</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.6.6">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.6.6.1"><span class="ltx_text" id="A4.F9.1.6.6.1.1" style="background-color:#CCFFCC;">15:00 on Monday and arrives at London Kings Cross at 15:51. The</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.7.7">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.7.7.1"><span class="ltx_text" id="A4.F9.1.7.7.1.1" style="background-color:#CCFFCC;">journey will take 51 minutes and the ticket price is 23.60 pounds.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.8.8">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.8.8.1"><span class="ltx_text" id="A4.F9.1.8.8.1.1" style="background-color:#CCFFCC;">The train ID is TR6028. Would you like to book this train ?</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.9.9">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.9.9.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.9.9.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A4.F9.1.9.9.1.1.1" style="background-color:#CCCCFF;"> I need it to depart from cambridge</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.10.10">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.10.10.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.10.10.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A4.F9.1.10.10.1.1.1"> I have found a train for you. It departs from Cambridge</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.11.11">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.11.11.1"><span class="ltx_text" id="A4.F9.1.11.11.1.1" style="background-color:#CCFFCC;">at 05:00 on Monday and arrives at London Kings Cross at 05:51.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.12.12">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.12.12.1"><span class="ltx_text" id="A4.F9.1.12.12.1.1" style="background-color:#CCFFCC;">The journey will take 51 minutes and the ticket price is 23.60 pounds.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.13.13">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.13.13.1"><span class="ltx_text" id="A4.F9.1.13.13.1.1" style="background-color:#CCFFCC;">The train ID is TR7075. Would you like to book this train?</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.14.14">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.14.14.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.14.14.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A4.F9.1.14.14.1.1.1" style="background-color:#CCCCFF;"> I would like to leave after 14:15.</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.15.15">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.15.15.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.15.15.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A4.F9.1.15.15.1.1.1"> I have found a train for you. It departs from Cambridge at</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.16.16">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.16.16.1"><span class="ltx_text" id="A4.F9.1.16.16.1.1" style="background-color:#CCFFCC;">15:00 on Monday and arrives at London Kings Cross at 15:51.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.17.17">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.17.17.1"><span class="ltx_text" id="A4.F9.1.17.17.1.1" style="background-color:#CCFFCC;">The journey will take 51 minutes and the ticket price is 23.60 pounds.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.18.18">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.18.18.1"><span class="ltx_text" id="A4.F9.1.18.18.1.1" style="background-color:#CCFFCC;">The train ID is TR6028. Would you like to book this train?</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.19.19">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.19.19.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.19.19.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A4.F9.1.19.19.1.1.1" style="background-color:#CCCCFF;"> I would like 3 tickets please .</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.20.20">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.20.20.1"><span class="ltx_text" id="A4.F9.1.20.20.1.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.20.20.1.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A4.F9.1.20.20.1.1.1.1"> I have booked 3 tickets for you. Your booking reference</span></span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.21.21">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.21.21.1"><span class="ltx_text" id="A4.F9.1.21.21.1.1" style="background-color:#CCFFCC;">is 00000005.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.22.22">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.22.22.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.22.22.1.1">GPT-3.5</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.23.23">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.23.23.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.23.23.1.1" style="background-color:#CCCCFF;">User: <span class="ltx_text ltx_font_medium" id="A4.F9.1.23.23.1.1.1" style="background-color:#CCCCFF;"> I would also like to book a train , please . I will leave on monday .</span></span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.24.24">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.24.24.1"><span class="ltx_text" id="A4.F9.1.24.24.1.1" style="background-color:#CCCCFF;">I need to book a train to london kings cross . I would like to leave after</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.25.25">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.25.25.1"><span class="ltx_text" id="A4.F9.1.25.25.1.1" style="background-color:#CCCCFF;">14:15.</span></td>
+</tr>
+<tr class="ltx_tr" id="A4.F9.1.26.26">
+<td class="ltx_td ltx_align_left" id="A4.F9.1.26.26.1"><span class="ltx_text ltx_font_bold" id="A4.F9.1.26.26.1.1" style="background-color:#CCFFCC;">System: <span class="ltx_text ltx_font_medium" id="A4.F9.1.26.26.1.1.1"> Your booking reference for the train service is 00000106.</span></span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 9: </span>Excerpts of a conversation showing how GPT-4 clarifies and communicates better than GPT-3.5.</figcaption>
+</figure>
+</section>
+<section class="ltx_paragraph" id="A4.SS0.SSS0.Px3">
+<h4 class="ltx_title ltx_title_paragraph">Politeness and verbosity</h4>
+<div class="ltx_para" id="A4.SS0.SSS0.Px3.p1">
+<p class="ltx_p" id="A4.SS0.SSS0.Px3.p1.1">Analysing the system utterances for both models, we saw that GPT-4 produces more verbose and polite answers. While GPT-3.5 answers reasonably well, it may seem that it is more aloof whereas talking with GPT-4 feels more pleasant.</p>
+</div>
+</section>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Mon Dec  2 08:26:32 2024 by <a class="ltx_LaTeXML_logo" href="http://dlmf.nist.gov/LaTeXML/"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img alt="Mascot Sammy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg=="/></a>
+</div></footer>
+</div>
+</body>
+</html>
